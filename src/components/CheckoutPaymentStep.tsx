@@ -11,6 +11,7 @@ import {
 import {
   CheckoutFormValues,
   PRIMARY_PAYEE_NAME,
+  PRIMARY_TELEGRAM_USERNAME,
   PRIMARY_UPI_ID,
   PAYMENT_QR_IMAGE_PATH,
   buildTelegramUrl,
@@ -88,12 +89,11 @@ export function CheckoutPaymentStep({
             Welcome to Batch 1, {values.fullName}!
           </h4>
           <p className="mt-2 text-sm text-slate-600">
-            Your enrollment details for{' '}
+            Aapki enrollment details{' '}
             <span className="font-semibold text-slate-900">{plan.name}</span>{' '}
-            have been logged. Send your payment screenshot on{' '}
-            <strong className="font-semibold text-slate-900">Telegram</strong>{' '}
-            to unlock your GTA 6 mentorship access & VIP group within 5
-            minutes.
+            ke liye register ho chuki hain. Niche button par click karke Telegram par{' '}
+            <strong className="font-semibold text-slate-900">@{PRIMARY_TELEGRAM_USERNAME}</strong>{' '}
+            ko payment screenshot bhejein — 5 minutes ke andar aapka VIP access & community link activate ho jayega.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export function CheckoutPaymentStep({
             className="btn-sheen inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-[#0088cc] px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#0077b5]"
           >
             <Send className="h-4 w-4" aria-hidden="true" />
-            <span>Send Confirmation on Telegram</span>
+            <span>Send Screenshot to @{PRIMARY_TELEGRAM_USERNAME}</span>
             <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
           <button
@@ -203,7 +203,7 @@ export function CheckoutPaymentStep({
               </div>
 
               <p className="text-[11px] text-slate-500 bg-white/80 p-2 rounded-md border border-slate-200/60 leading-tight">
-                💡 <strong>Scan from Gallery:</strong> &apos;Download QR Code&apos; dabayein aur PhonePe/GPay scanner me gallery se select karke pay karein.
+                💡 <strong>Scan from Gallery:</strong> &apos;Download QR Code&apos; dabayein aur PhonePe/GPay me gallery se select karke pay karein. Payment ke baad Telegram par <strong>@{PRIMARY_TELEGRAM_USERNAME}</strong> ko screenshot bhejein.
               </p>
             </div>
           </div>

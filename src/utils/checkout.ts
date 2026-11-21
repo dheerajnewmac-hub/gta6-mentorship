@@ -84,6 +84,7 @@ export function generateOrderReference(planId: PlanId, phoneDigits: string): str
 
 export const PRIMARY_UPI_ID = 'dheerajkiroriwal@ybl';
 export const PRIMARY_PAYEE_NAME = 'Dheeraj Kiroriwal';
+export const PRIMARY_TELEGRAM_USERNAME = 'Eliteclippers1';
 export const PAYMENT_QR_IMAGE_PATH = '/assets/payment/phonepe_qr.png';
 
 export function buildUpiUri(params: {
@@ -142,7 +143,7 @@ export function buildTelegramUrl(params: {
   paymentMethod: PaymentMethod;
   orderRef: string;
 }): string {
-  const mentorTelegramUsername = 'gta6clippingmentor';
+  const mentorTelegramUsername = PRIMARY_TELEGRAM_USERNAME;
   const plan = PRICING_PLANS[params.planId];
   const price = getPlanPriceInfo(params.planId, params.currency);
   const methodText =
@@ -157,6 +158,7 @@ export function buildTelegramUrl(params: {
     `Phone: ${params.countryCode} ${params.whatsappNumber}`,
     `Plan: ${plan.name} (${price.currentFormatted} ${plan.billingCycleLabel})`,
     `Payment Mode: ${methodText}`,
+    `Maine payment kar diya hai, yahan screenshot bhej raha hoon!`,
   ].join('\n');
 
   return `https://t.me/${mentorTelegramUsername}?text=${encodeURIComponent(message)}`;

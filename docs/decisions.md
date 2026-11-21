@@ -19,6 +19,6 @@
   - 100% Guaranteed Campaign Approval — Start Earning From Day 1
   - 1-on-1 Direct Mentor VIP Support & Daily Clip Audits
 
-### 4. Deployment Strategy
-- **Decision**: Deploy via GitHub integration to Vercel (`https://github.com/dheerajnewmac-hub/gta6-mentorship`).
-- **Configuration**: Added `vercel.json` with client-side SPA routing rewrites.
+### 4. Vercel Production Deployment
+- **Decision**: Hosted on Vercel via GitHub integration at `https://gta6-mentorship.vercel.app`.
+- **Outcome**: Successfully deployed with global CDN caching and automatic CI/CD deployment on every GitHub push.

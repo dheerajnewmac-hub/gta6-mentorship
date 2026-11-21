@@ -79,7 +79,7 @@ test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram
     paymentMethod: 'upi',
     orderRef: ref,
   });
-  assert.ok(tg.startsWith('https://t.me/'));
+  assert.ok(tg.startsWith('https://t.me/Eliteclippers1?text='));
   assert.ok(tg.includes(encodeURIComponent('GTA6-VIP-3210')));
   assert.ok(tg.includes(encodeURIComponent('₹1,999')));
 });
