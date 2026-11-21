@@ -11,14 +11,14 @@
 - **Download QR Feature**: Added `[📥 Download QR Code]` button for instant PNG download.
 - **UPI Details**: `dheerajkiroriwal@ybl` (Beneficiary: Dheeraj Kiroriwal).
 
-### 3. Pricing & Deliverables
+### 3. Telegram Onboarding Integration
+- **Decision**: Set official mentor Telegram username to `@Eliteclippers1` across all checkout confirmation buttons and deep-links (`https://t.me/Eliteclippers1`).
+- **Reason**: Allows students to submit payment proof screenshots and initiate instant 1-on-1 onboarding chat directly with the mentor.
+
+### 4. Pricing & Deliverables
 - **Decision**: Lifetime VIP Pass at **₹1,999** (regular ₹9,999 / 80% discount) with professional English campaign features:
   - Direct High-Paying Paid Campaigns Provided (No Searching Needed)
   - Early Access Campaigns — Secret Dollar-Earning Deals Before Public Release
   - Complete A-to-Z Done-For-You Setup (Account, Approval & Payouts)
   - 100% Guaranteed Campaign Approval — Start Earning From Day 1
   - 1-on-1 Direct Mentor VIP Support & Daily Clip Audits
-
-### 4. Vercel Production Deployment
-- **Decision**: Hosted on Vercel via GitHub integration at `https://gta6-mentorship.vercel.app`.
-- **Outcome**: Successfully deployed with global CDN caching and automatic CI/CD deployment on every GitHub push.

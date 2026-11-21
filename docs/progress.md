@@ -1,21 +1,23 @@
 # Project Progress
 
-## Status: Milestone 7 Complete — Website 100% LIVE on Vercel!
+## Status: Milestone 8 Complete — Telegram Handle Set to @Eliteclippers1
 - **Date**: 2026-11-21
 - **Live Production URL**: [https://gta6-mentorship.vercel.app](https://gta6-mentorship.vercel.app)
 - **GitHub Repository**: [https://github.com/dheerajnewmac-hub/gta6-mentorship](https://github.com/dheerajnewmac-hub/gta6-mentorship)
-- **Current Milestone**: Website successfully hosted and globally accessible via Vercel Edge CDN with free SSL/HTTPS!
+- **Current Milestone**: Integrated user's official Telegram username `@Eliteclippers1` for instant payment screenshot submissions and onboarding chat.
 
-## Completed & Verified
-- Vercel automatically built and deployed the latest GitHub commit (`60d1b0d`).
-- Verified Live Production Status:
-  - HTTP `200 OK` on `https://gta6-mentorship.vercel.app`.
-  - Verified live cropped PhonePe QR code at `https://gta6-mentorship.vercel.app/assets/payment/phonepe_qr.png`.
-  - Verified Lifetime VIP plan at ₹1,999 (Save 80%).
-  - Verified English campaign features (Paid Campaigns Provided, Early Access Campaigns, A to Z Setup).
-  - Verified 2-Step Checkout Modal with live UPI ID `dheerajkiroriwal@ybl` (Dheeraj Kiroriwal).
-  - Verified "Download QR Code" button.
-  - Verified live buyer toasts and multi-currency pricing switcher.
+## Completed
+- Configured `PRIMARY_TELEGRAM_USERNAME`: `Eliteclippers1` in `src/utils/checkout.ts`.
+- Updated `buildTelegramUrl` to auto-populate Telegram chat message:
+  - "Hi Mentor! Payment done for GTA 6 Clipping Mentorship... Maine payment kar diya hai, yahan screenshot bhej raha hoon!"
+  - Direct deep link: `https://t.me/Eliteclippers1?text=...`
+- Updated `src/components/CheckoutPaymentStep.tsx`:
+  - Payment screen notes clearly prompt sending screenshot to `@Eliteclippers1`.
+  - Confirmation screen displays: "Send Screenshot to @Eliteclippers1".
+- Unit test suite: 10 / 10 passed.
+- Production build: `npm run build` compiled in 713ms.
+- Committed and pushed commit `f8fe541` to GitHub (`main -> main`).
+- Automatically deployed to Vercel production.
 
 ## Known Bugs
 - None.
