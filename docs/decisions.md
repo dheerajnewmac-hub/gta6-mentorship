@@ -7,7 +7,7 @@
 - **Reason**: Clean editorial high-conversion canvas design (`#FAFAFB`), Royal Blue (`#1D4ED8`) CTA buttons with sheen hover animation, and verified green badges.
 
 ### 2. Payment Gateway & Real Cropped QR
-- **Decision**: PhonePe screenshot cropped to only the exact square QR code (370x370 px) with centered PhonePe icon, removing all full-screen mobile borders and headers.
+- **Decision**: PhonePe screenshot cropped strictly to the exact square QR code (370x370 px) with centered PhonePe icon.
 - **Download QR Feature**: Added `[📥 Download QR Code]` button for instant PNG download.
 - **UPI Details**: `dheerajkiroriwal@ybl` (Beneficiary: Dheeraj Kiroriwal).
 
@@ -18,3 +18,7 @@
   - Complete A-to-Z Done-For-You Setup (Account, Approval & Payouts)
   - 100% Guaranteed Campaign Approval — Start Earning From Day 1
   - 1-on-1 Direct Mentor VIP Support & Daily Clip Audits
+
+### 4. Deployment Strategy
+- **Decision**: Deploy via GitHub integration to Vercel (`https://github.com/dheerajnewmac-hub/gta6-mentorship`).
+- **Configuration**: Added `vercel.json` with client-side SPA routing rewrites.
