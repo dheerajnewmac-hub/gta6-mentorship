@@ -21,7 +21,7 @@ test('first live buyer features Ashok purchasing Lifetime VIP Access at 1999 INR
   assert.equal(inr.isLifetime, true);
 
   const pkr = formatLiveBuyerNotification(first, 'PKR');
-  assert.equal(pkr.priceFormatted, 'Rs. 6,499');
+  assert.equal(pkr.priceFormatted, 'Rs. 6,500');
 
   const usd = formatLiveBuyerNotification(first, 'USD');
   assert.equal(usd.priceFormatted, '$24');

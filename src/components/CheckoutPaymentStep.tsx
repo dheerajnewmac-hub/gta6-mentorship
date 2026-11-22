@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  AlertTriangle,
   Check,
   CheckCircle2,
   Copy,
@@ -8,12 +9,12 @@ import {
   QrCode,
   Send,
 } from 'lucide-react';
+import { USDT_WALLET_INFO } from '../data/content';
 import {
   CheckoutFormValues,
   PRIMARY_PAYEE_NAME,
   PRIMARY_TELEGRAM_USERNAME,
   PRIMARY_UPI_ID,
-  PAYMENT_QR_IMAGE_PATH,
   buildTelegramUrl,
   buildUpiUri,
   generateOrderReference,
@@ -31,20 +32,23 @@ interface CheckoutPaymentStepProps {
   onClose: () => void;
 }
 
+
 export function CheckoutPaymentStep({
   values,
   currency,
   onEditDetails,
   onClose,
 }: CheckoutPaymentStepProps) {
-  const [copiedId, setCopiedId] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<'upi' | 'usdt' | null>(null);
   const [confirmed, setConfirmed] = useState(false);
 
   const plan = PRICING_PLANS[values.planId];
   const priceInfo = getPlanPriceInfo(values.planId, currency);
+  const usdPriceInfo = getPlanPriceInfo(values.planId, 'USD');
   const inrAmount = plan.prices.INR.current;
   const orderRef = generateOrderReference(values.planId, values.whatsappNumber);
   const upiId = PRIMARY_UPI_ID;
+  const payeeName = PRIMARY_PAYEE_NAME;
 
   const upiUri = buildUpiUri({
     amountInr: inrAmount,
@@ -58,42 +62,33 @@ export function CheckoutPaymentStep({
     orderRef,
   });
 
-  const handleCopyUpi = () => {
+  const handleCopy = (text: string, key: 'upi' | 'usdt') => {
     if (navigator.clipboard) {
-      void navigator.clipboard.writeText(upiId);
+      void navigator.clipboard.writeText(text);
     }
-    setCopiedId(true);
-    window.setTimeout(() => setCopiedId(false), 2000);
-  };
-
-  const handleDownloadQr = () => {
-    const link = document.createElement('a');
-    link.href = PAYMENT_QR_IMAGE_PATH;
-    link.download = `PhonePe_QR_Dheeraj_Kiroriwal_${orderRef}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    setCopiedKey(key);
+    window.setTimeout(() => setCopiedKey(null), 2000);
   };
 
   if (confirmed) {
     return (
       <div className="space-y-5 py-2 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 text-[#0284C7] border border-sky-200">
-          <CheckCircle2 className="h-8 w-8 text-[#059669]" />
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-emerald-400/35 bg-emerald-500/15">
+          <CheckCircle2 className="h-8 w-8 text-emerald-400" />
         </div>
         <div>
-          <p className="font-mono text-xs font-semibold text-[#059669]">
+          <p className="font-mono text-xs font-semibold text-emerald-400">
             Ref #{orderRef} · Onboarding Queued
           </p>
-          <h4 className="mt-1 font-display text-2xl font-extrabold text-slate-900">
+          <h4 className="mt-1 font-display text-2xl font-extrabold text-white">
             Welcome to Batch 1, {values.fullName}!
           </h4>
-          <p className="mt-2 text-sm text-slate-600">
-            Aapki enrollment details{' '}
-            <span className="font-semibold text-slate-900">{plan.name}</span>{' '}
-            ke liye register ho chuki hain. Niche button par click karke Telegram par{' '}
-            <strong className="font-semibold text-slate-900">@{PRIMARY_TELEGRAM_USERNAME}</strong>{' '}
-            ko payment screenshot bhejein — 5 minutes ke andar aapka VIP access & community link activate ho jayega.
+          <p className="mt-2 text-sm text-zinc-300">
+            Your enrollment details for{' '}
+            <span className="font-semibold text-white">{plan.name}</span> have
+            been logged. Send your payment screenshot on{' '}
+            <strong className="font-semibold text-emerald-400">Telegram (@{PRIMARY_TELEGRAM_USERNAME})</strong> to
+            unlock your GTA 6 mentorship access & VIP group within 5 minutes.
           </p>
         </div>
 
@@ -102,7 +97,7 @@ export function CheckoutPaymentStep({
             href={telegramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-sheen inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-[#0088cc] px-5 py-3 text-sm font-bold text-white shadow-md transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#0077b5]"
+            className="btn-sheen inline-flex min-h-[50px] items-center justify-center gap-2 rounded-full bg-[#0088cc] px-5 py-3 text-sm font-bold text-white shadow-[0_12px_28px_-8px_rgba(0,136,204,0.75)] transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#0077b5]"
           >
             <Send className="h-4 w-4" aria-hidden="true" />
             <span>Send Screenshot to @{PRIMARY_TELEGRAM_USERNAME}</span>
@@ -111,7 +106,7 @@ export function CheckoutPaymentStep({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-white/15 bg-white/[0.05] px-5 py-2.5 text-sm font-semibold text-zinc-200 hover:bg-white/10"
           >
             Return to Page
           </button>
@@ -122,66 +117,80 @@ export function CheckoutPaymentStep({
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#07050F] p-4">
         <div>
-          <p className="text-xs text-slate-500">Order Ref · {orderRef}</p>
-          <p className="font-display text-base font-bold text-slate-900">
+          <p className="font-mono text-xs text-zinc-400">
+            Order Ref · {orderRef}
+          </p>
+          <p className="font-display text-base font-bold text-white">
             {plan.name} ({plan.billingCycleLabel})
           </p>
         </div>
-        <p className="font-mono text-xl font-extrabold text-[#059669] tabular-nums">
-          {priceInfo.currentFormatted}
-        </p>
+        <div className="text-right">
+          <p className="font-mono text-xl font-extrabold text-emerald-400 tabular-nums">
+            {values.paymentMethod === 'usdt'
+              ? `${usdPriceInfo.currentFormatted} USDT`
+              : priceInfo.currentFormatted}
+          </p>
+          {values.paymentMethod === 'usdt' && currency !== 'USD' && (
+            <p className="font-mono text-[11px] text-zinc-400">
+              ({priceInfo.currentFormatted})
+            </p>
+          )}
+        </div>
       </div>
 
       {values.paymentMethod === 'upi' ? (
-        <div className="rounded-xl border border-blue-200 bg-blue-50/40 p-4 sm:p-5">
-          <div className="flex flex-col sm:flex-row items-center gap-5">
-            <div className="flex flex-col items-center shrink-0">
-              <div className="relative rounded-2xl border-2 border-slate-800 bg-black p-2.5 shadow-md overflow-hidden">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <div className="flex flex-col items-center gap-5 sm:flex-row">
+            <div className="flex flex-col items-center gap-2">
+              <div className="shrink-0 overflow-hidden rounded-2xl border border-white/20 bg-white p-2 shadow-lg">
                 <img
-                  src={PAYMENT_QR_IMAGE_PATH}
-                  alt="PhonePe QR Code - Dheeraj Kiroriwal"
-                  className="w-36 h-36 rounded-lg object-contain"
+                  src="/assets/payment/phonepe_qr.png"
+                  alt={`UPI Payment PhonePe QR Code for ${orderRef}`}
+                  className="h-32 w-32 object-contain"
                 />
               </div>
-              <button
-                type="button"
-                onClick={handleDownloadQr}
-                className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#1D4ED8] px-3.5 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-[#1E40AF] transition-colors active:scale-95"
+              <a
+                href="/assets/payment/phonepe_qr.png"
+                download="PhonePe_QR_Dheeraj.png"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-violet-300 hover:text-white"
               >
-                <Download className="h-3.5 w-3.5" />
-                <span>Download QR Code</span>
-              </button>
+                <Download className="h-3 w-3" />
+                Download QR
+              </a>
             </div>
 
             <div className="min-w-0 flex-1 space-y-3 text-center sm:text-left">
-              <div>
-                <p className="flex items-center justify-center sm:justify-start gap-1.5 text-xs font-bold text-[#1D4ED8]">
-                  <QrCode className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  <span>PhonePe / GPay / Paytm QR Code</span>
-                </p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  Name: <strong className="text-slate-800">{PRIMARY_PAYEE_NAME}</strong>
-                </p>
+              <p className="flex items-center justify-center gap-2 text-xs font-semibold text-white sm:justify-start">
+                <QrCode
+                  className="h-4 w-4 shrink-0 text-emerald-400"
+                  aria-hidden="true"
+                />
+                <span>Scan with PhonePe, GPay, Paytm or BHIM</span>
+              </p>
+              
+              <div className="rounded-xl border border-white/10 bg-[#07050F] p-3 text-left">
+                <p className="text-[10px] uppercase tracking-wider text-zinc-400">Beneficiary Name</p>
+                <p className="font-display text-xs font-bold text-white">{payeeName}</p>
               </div>
 
-              <div className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white px-3.5 py-2.5">
-                <div className="text-left min-w-0">
-                  <p className="text-[10px] uppercase font-semibold text-slate-400">UPI ID</p>
-                  <p className="font-mono text-xs font-bold text-slate-900 truncate">
+              <div className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#07050F] px-3.5 py-2.5">
+                <div className="min-w-0 text-left">
+                  <p className="text-[10px] uppercase tracking-wider text-zinc-400">UPI ID</p>
+                  <span className="truncate font-mono text-xs font-semibold text-emerald-400">
                     {upiId}
-                  </p>
+                  </span>
                 </div>
                 <button
                   type="button"
-                  onClick={handleCopyUpi}
-                  className="inline-flex items-center gap-1 rounded-md bg-slate-100 px-2.5 py-1.5 text-xs font-semibold text-[#1D4ED8] hover:bg-slate-200 whitespace-nowrap shrink-0 transition-colors"
+                  onClick={() => handleCopy(upiId, 'upi')}
+                  className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-violet-600/90 px-2.5 py-1 text-xs font-semibold text-white hover:bg-violet-500"
                 >
-                  {copiedId ? (
+                  {copiedKey === 'upi' ? (
                     <>
-                      <Check className="h-3.5 w-3.5 text-[#059669]" />
-                      Copied!
+                      <Check className="h-3.5 w-3.5 text-emerald-300" />
+                      Copied
                     </>
                   ) : (
                     <>
@@ -191,46 +200,100 @@ export function CheckoutPaymentStep({
                   )}
                 </button>
               </div>
-
-              <div className="flex items-center justify-center sm:justify-start gap-2">
-                <a
-                  href={upiUri}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#1D4ED8] underline underline-offset-4 hover:text-[#1E40AF]"
-                >
-                  <span>Open UPI App Directly on Mobile</span>
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-
-              <p className="text-[11px] text-slate-500 bg-white/80 p-2 rounded-md border border-slate-200/60 leading-tight">
-                💡 <strong>Scan from Gallery:</strong> &apos;Download QR Code&apos; dabayein aur PhonePe/GPay me gallery se select karke pay karein. Payment ke baad Telegram par <strong>@{PRIMARY_TELEGRAM_USERNAME}</strong> ko screenshot bhejein.
-              </p>
+              <a
+                href={upiUri}
+                className="inline-flex text-xs font-semibold text-violet-300 underline underline-offset-4 hover:text-white"
+              >
+                Open UPI App Directly on Mobile
+              </a>
             </div>
           </div>
         </div>
+      ) : values.paymentMethod === 'usdt' ? (
+        <div className="space-y-4 rounded-2xl border border-emerald-400/25 bg-emerald-500/[0.06] p-5">
+          <div className="flex flex-col items-center gap-5 sm:flex-row">
+            {/* Real User-Uploaded USDT Tron TRC-20 QR Image */}
+            <div className="w-40 shrink-0 overflow-hidden rounded-2xl border border-white/20 bg-white p-1.5 shadow-lg">
+              <div className="aspect-square w-full overflow-hidden rounded-xl bg-white">
+                <img
+                  src={USDT_WALLET_INFO.qrImageSrc}
+                  alt={`Official Receive USDT (${USDT_WALLET_INFO.network}) QR code for ${USDT_WALLET_INFO.address}`}
+                  className="h-full w-full scale-[1.22] object-cover object-[50%_38%]"
+                />
+              </div>
+            </div>
+
+            <div className="min-w-0 flex-1 space-y-3 text-center sm:text-left">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3 py-1 text-[11px] font-bold text-emerald-300">
+                <span>Receive {USDT_WALLET_INFO.asset}</span>
+                <span>·</span>
+                <span>{USDT_WALLET_INFO.network}</span>
+              </div>
+
+              <p className="text-xs leading-relaxed text-zinc-300">
+                Binance, Bybit, OKX, Trust Wallet ya kisi bhi crypto app se{' '}
+                <strong className="font-mono text-white">
+                  {usdPriceInfo.currentFormatted} USDT (TRC-20)
+                </strong>{' '}
+                scan ya copy karke send karein.
+              </p>
+
+              <div className="flex items-center justify-between gap-2 rounded-xl border border-white/15 bg-[#07050F] px-3 py-2.5">
+                <span className="truncate font-mono text-[11px] text-white">
+                  {USDT_WALLET_INFO.address}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleCopy(USDT_WALLET_INFO.address, 'usdt')}
+                  className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-lg bg-violet-600/90 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-violet-500"
+                >
+                  {copiedKey === 'usdt' ? (
+                    <>
+                      <Check className="h-3 w-3 text-emerald-300" />
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3 w-3" />
+                      Copy Wallet
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2 rounded-xl border border-amber-400/30 bg-amber-500/10 px-3.5 py-2.5 text-[11px] leading-relaxed text-amber-200">
+            <AlertTriangle
+              className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-300"
+              aria-hidden="true"
+            />
+            <span>{USDT_WALLET_INFO.warning}</span>
+          </div>
+        </div>
       ) : (
-        <div className="rounded-xl border border-sky-200 bg-sky-50/50 p-5 space-y-3">
-          <p className="text-xs font-semibold text-[#0284C7]">
+        <div className="space-y-3 rounded-2xl border border-sky-400/25 bg-sky-500/[0.08] p-5">
+          <p className="text-xs font-semibold text-sky-300">
             Pakistan & Direct Telegram Onboarding
           </p>
-          <p className="text-sm text-slate-700 leading-relaxed">
-            EasyPaisa, JazzCash, Sadapay ya direct Bank Transfer details ke
-            liye niche button click karein. Aapka Order Ref{' '}
-            <span className="font-mono font-semibold text-slate-900">
+          <p className="text-sm leading-relaxed text-zinc-300">
+            EasyPaisa, JazzCash, Sadapay ya direct Bank Transfer details ke liye
+            niche button click karein. Aapka Order Ref{' '}
+            <span className="font-mono font-semibold text-white">
               {orderRef}
             </span>{' '}
             Telegram message me auto-fill ho jayega.
           </p>
           <div className="grid grid-cols-2 gap-3 pt-1 text-xs">
-            <div className="rounded-lg border border-sky-200/80 bg-white p-3">
-              <p className="text-slate-500">EasyPaisa / JazzCash</p>
-              <p className="mt-0.5 font-mono font-semibold text-slate-900">
+            <div className="rounded-xl border border-white/10 bg-[#07050F] p-3">
+              <p className="text-zinc-400">EasyPaisa / JazzCash</p>
+              <p className="mt-0.5 font-mono font-semibold text-white">
                 Instant Verified Account
               </p>
             </div>
-            <div className="rounded-lg border border-sky-200/80 bg-white p-3">
-              <p className="text-slate-500">Activation Time</p>
-              <p className="mt-0.5 font-mono font-semibold text-[#059669]">
+            <div className="rounded-xl border border-white/10 bg-[#07050F] p-3">
+              <p className="text-zinc-400">Activation Time</p>
+              <p className="mt-0.5 font-mono font-semibold text-emerald-400">
                 Under 5 Minutes
               </p>
             </div>
@@ -242,16 +305,16 @@ export function CheckoutPaymentStep({
         <button
           type="button"
           onClick={() => setConfirmed(true)}
-          className="btn-sheen inline-flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[#1D4ED8] px-5 py-3 text-sm font-bold text-white brand-cta-shadow transition-all duration-150 hover:-translate-y-0.5 hover:bg-[#1E40AF] active:scale-[0.98]"
+          className="btn-sheen violet-cta-glow inline-flex min-h-[50px] w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white active:scale-[0.98]"
         >
-          {values.paymentMethod === 'upi'
-            ? "I've Paid — Activate My Access"
-            : 'Confirm & Proceed to Telegram Onboarding'}
+          {values.paymentMethod === 'whatsapp'
+            ? 'Confirm & Proceed to Telegram Onboarding'
+            : "I've Paid — Activate My Access"}
         </button>
         <button
           type="button"
           onClick={onEditDetails}
-          className="text-xs font-medium text-slate-500 hover:text-slate-900 py-1.5"
+          className="py-1.5 text-xs font-medium text-zinc-400 transition-colors hover:text-white"
         >
           Edit Name, Number, or Plan
         </button>

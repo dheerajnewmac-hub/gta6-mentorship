@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { CurrencyCode, PlanId, PRICING_PLANS, getPlanPriceInfo } from './pricing';
 
 export type CountryCode = '+91' | '+92' | '+1';
-export type PaymentMethod = 'upi' | 'whatsapp';
+export type PaymentMethod = 'upi' | 'usdt' | 'whatsapp';
 
 export const COUNTRY_CODES: { code: CountryCode; label: string; region: string }[] = [
   { code: '+91', label: '+91 (India)', region: 'India' },
@@ -25,7 +25,7 @@ export const checkoutSchema = z
       .transform((val) => val.replace(/[\s-]/g, ''))
       .refine((val) => /^\d+$/.test(val), 'Enter digits only (no symbols or spaces).'),
     planId: z.enum(['monthly', 'lifetime']),
-    paymentMethod: z.enum(['upi', 'whatsapp']),
+    paymentMethod: z.enum(['upi', 'usdt', 'whatsapp']),
   })
   .superRefine((data, ctx) => {
     const digits = data.whatsappNumber;
@@ -34,14 +34,14 @@ export const checkoutSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ['whatsappNumber'],
-          message: `Enter a valid 10-digit WhatsApp number for ${data.countryCode}.`,
+          message: `Enter a valid 10-digit phone number for ${data.countryCode}.`,
         });
       }
     } else if (digits.length < 7 || digits.length > 15) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ['whatsappNumber'],
-        message: 'Enter a valid WhatsApp number (7 to 15 digits).',
+        message: 'Enter a valid phone number (7 to 15 digits).',
       });
     }
   });
@@ -82,10 +82,15 @@ export function generateOrderReference(planId: PlanId, phoneDigits: string): str
   return `GTA6-${prefix}-${tail}`;
 }
 
+export function getPaymentMethodLabel(paymentMethod: PaymentMethod): string {
+  if (paymentMethod === 'upi') return 'UPI / GPay / PhonePe / Paytm';
+  if (paymentMethod === 'usdt') return 'USDT (Tron TRC-20 Crypto)';
+  return 'EasyPaisa / JazzCash / Direct Transfer';
+}
+
 export const PRIMARY_UPI_ID = 'dheerajkiroriwal@ybl';
 export const PRIMARY_PAYEE_NAME = 'Dheeraj Kiroriwal';
 export const PRIMARY_TELEGRAM_USERNAME = 'Eliteclippers1';
-export const PAYMENT_QR_IMAGE_PATH = '/assets/payment/phonepe_qr.png';
 
 export function buildUpiUri(params: {
   amountInr: number;
@@ -117,16 +122,13 @@ export function buildWhatsAppUrl(params: {
   const mentorWhatsApp = '919820145670';
   const plan = PRICING_PLANS[params.planId];
   const price = getPlanPriceInfo(params.planId, params.currency);
-  const methodText =
-    params.paymentMethod === 'upi'
-      ? 'UPI / GPay / PhonePe / Card'
-      : 'EasyPaisa / JazzCash / Direct WhatsApp';
+  const methodText = getPaymentMethodLabel(params.paymentMethod);
 
   const message = [
-    `Hi Mentor! I want to enroll in GTA 6 Clipping Mastery.`,
+    `Hi Mentor! I want to enroll in GTA 6 Clipping Mentorship.`,
     `Order Ref: ${params.orderRef}`,
     `Name: ${params.fullName}`,
-    `WhatsApp: ${params.countryCode} ${params.whatsappNumber}`,
+    `Phone: ${params.countryCode} ${params.whatsappNumber}`,
     `Plan: ${plan.name} (${price.currentFormatted} ${plan.billingCycleLabel})`,
     `Payment Mode: ${methodText}`,
   ].join('\n');
@@ -146,10 +148,7 @@ export function buildTelegramUrl(params: {
   const mentorTelegramUsername = PRIMARY_TELEGRAM_USERNAME;
   const plan = PRICING_PLANS[params.planId];
   const price = getPlanPriceInfo(params.planId, params.currency);
-  const methodText =
-    params.paymentMethod === 'upi'
-      ? 'UPI / GPay / PhonePe / Card'
-      : 'EasyPaisa / JazzCash / Direct Transfer';
+  const methodText = getPaymentMethodLabel(params.paymentMethod);
 
   const message = [
     `Hi Mentor! Payment done for GTA 6 Clipping Mentorship.`,

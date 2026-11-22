@@ -1,188 +1,455 @@
 import { motion } from 'motion/react';
-import { ArrowDownRight, ArrowRight, CheckCircle2, Expand } from 'lucide-react';
-import { PROOF_ITEMS } from '../data/content';
-import { CurrencyCode, PlanId } from '../utils/pricing';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  CheckCircle2,
+  Eye,
+  Landmark,
+  ShieldCheck,
+} from 'lucide-react';
+import { MARQUEE_METRICS, PROOF_ITEMS } from '../data/content';
+import { CURRENCY_META, CurrencyCode, PlanId } from '../utils/pricing';
 import { ProofItem } from '../utils/proofFilter';
 
 interface HeroSectionProps {
   currency: CurrencyCode;
-  onEnrollClick: (planId: PlanId) => void;
+  onCurrencyChange: (currency: CurrencyCode) => void;
+  onEnrollClick: (plan?: PlanId) => void;
   onSelectProof: (item: ProofItem) => void;
 }
 
-const TOTAL_EARNED_LABEL: Record<CurrencyCode, string> = {
-  INR: '₹48,000+ ($573+)',
-  PKR: 'Rs. 1,60,000+ ($573+)',
-  USD: '$573.90+',
+const CURRENCIES: CurrencyCode[] = ['INR', 'PKR', 'USD'];
+
+const DASHBOARD_BARS = [32, 46, 38, 62, 54, 78, 68, 92, 84, 100];
+
+const HERO_TOTAL_SHOWN: Record<CurrencyCode, string> = {
+  INR: '₹3,10,000+',
+  PKR: 'Rs. 10,30,000+',
+  USD: '$3,650+',
 };
 
-const SBI_PAYOUT_LABEL: Record<CurrencyCode, string> = {
+const HERO_SBI_LABEL: Record<CurrencyCode, string> = {
   INR: '₹42,282.27',
   PKR: 'Rs. 1,41,500',
   USD: '$467.21',
 };
 
+const HEADLINE_WORDS_LINE1 = ['GTA', '6', 'Clipping', 'Se'];
+const HEADLINE_WORDS_LINE2 = ['Daily', 'Dollars', 'Earn', 'Karo'];
+
 export function HeroSection({
   currency,
+  onCurrencyChange,
   onEnrollClick,
   onSelectProof,
 }: HeroSectionProps) {
-  const featuredProof = PROOF_ITEMS[0];
-
-  const stats = [
-    { value: TOTAL_EARNED_LABEL[currency], label: 'GTA 6 Clipping in 2–3 Days' },
-    { value: SBI_PAYOUT_LABEL[currency], label: 'Direct SBI Bank Transfer' },
-    { value: 'Phone or PC', label: 'Edit with CapCut / Premiere' },
-    { value: '1-on-1 Support', label: 'Direct Mentor Clip Reviews' },
-  ];
+  const sbiProof = PROOF_ITEMS[0];
+  const viralViewsProof = PROOF_ITEMS[2];
 
   return (
-    <section
-      id="top"
-      className="relative overflow-hidden border-b border-slate-200/80 bg-white pt-10 pb-14 sm:pt-14 sm:pb-16"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 right-0 h-80 w-96 rounded-full bg-blue-50 blur-3xl"
-      />
+    <section className="relative overflow-hidden pt-12 pb-16 sm:pt-20 sm:pb-24">
+      {/* Quantix + Web Angles Cosmic Atmospheric Backdrop (Pure GPU CSS/SVG) */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        {/* Subtle coordinate grid */}
+        <div className="cosmic-grid-bg absolute inset-0 opacity-85" />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
+        {/* Top luminous radial rays */}
+        <div
+          className="absolute left-1/2 top-[-120px] h-[560px] w-[960px] -translate-x-1/2 rounded-full opacity-90 blur-[110px]"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, rgba(139, 92, 246, 0.58) 0%, rgba(124, 58, 237, 0.28) 44%, rgba(7, 5, 15, 0) 76%)',
+          }}
+        />
+
+        {/* Signature Quantix glowing curved horizon arc */}
+        <svg
+          viewBox="0 0 1440 420"
+          fill="none"
+          aria-hidden="true"
+          className="absolute left-1/2 top-[34px] w-[1440px] max-w-none -translate-x-1/2 opacity-100 sm:top-[20px]"
+        >
+          <defs>
+            <linearGradient id="horizonStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(139, 92, 246, 0)" />
+              <stop offset="18%" stopColor="rgba(139, 92, 246, 0.65)" />
+              <stop offset="50%" stopColor="rgba(245, 243, 255, 0.98)" />
+              <stop offset="82%" stopColor="rgba(139, 92, 246, 0.65)" />
+              <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
+            </linearGradient>
+            <linearGradient id="horizonGlowFill" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stopColor="rgba(139, 92, 246, 0.32)" />
+              <stop offset="55%" stopColor="rgba(124, 58, 237, 0.08)" />
+              <stop offset="100%" stopColor="rgba(7, 5, 15, 0)" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 60 390 Q 720 -18 1380 390 L 1380 420 L 60 420 Z"
+            fill="url(#horizonGlowFill)"
+          />
+          <path
+            d="M 60 390 Q 720 -18 1380 390"
+            stroke="url(#horizonStroke)"
+            strokeWidth="2.5"
+          />
+          <path
+            d="M 130 404 Q 720 16 1310 404"
+            stroke="url(#horizonStroke)"
+            strokeWidth="1.2"
+            strokeOpacity="0.38"
+          />
+        </svg>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        {/* Centered Hero Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="inline-flex items-center gap-2 rounded-full border border-violet-400/25 bg-violet-500/10 px-4 py-1.5 text-xs font-semibold text-violet-200 shadow-[0_0_24px_-6px_rgba(139,92,246,0.65)] backdrop-blur-md"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
+            <span>GTA 6 Hype Wave Live · 9 Real Payout &amp; Analytics Proofs Inside</span>
+          </motion.div>
+
+          {/* Word-by-word staggered Framer-style reveal */}
+          <h1 className="mt-7 font-display text-[38px] font-extrabold leading-[1.06] tracking-[-0.035em] text-white sm:text-[58px] lg:text-[66px]">
+            <span className="block">
+              {HEADLINE_WORDS_LINE1.map((word, idx) => (
+                <motion.span
+                  key={word}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.05 + idx * 0.06,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="mr-[0.24em] inline-block last:mr-0"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+            <span className="mt-1 block bg-gradient-to-b from-white via-violet-100 to-violet-300/80 bg-clip-text text-transparent">
+              {HEADLINE_WORDS_LINE2.map((word, idx) => (
+                <motion.span
+                  key={word}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.45,
+                    delay: 0.28 + idx * 0.06,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="mr-[0.24em] inline-block last:mr-0"
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </span>
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-300/90 sm:text-lg"
+          >
+            Sirf 2–3 din ke GTA 6 clipping sprint me{' '}
+            <span className="font-mono font-semibold text-emerald-400">
+              {HERO_SBI_LABEL[currency]}
+            </span>{' '}
+            SBI bank me,{' '}
+            <span className="font-mono font-semibold text-emerald-400">
+              $953.16
+            </span>{' '}
+            Kick clipping USDT payout aur{' '}
+            <span className="font-semibold text-white">1.3M+ verified views</span>.
+            Wahi exact system step-by-step seekho.
+          </motion.p>
+
+          {/* Primary & Secondary Pill CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7"
+            transition={{ duration: 0.45, delay: 0.56, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-8 flex flex-col items-center justify-center gap-3.5 sm:flex-row"
           >
-            <div className="mb-4 flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-1 text-xs sm:text-sm font-semibold">
-              <span className="text-[#059669]">
-                GTA 6 Hype Peak · Verified 2–3 Day Earnings
-              </span>
-              <span aria-hidden="true" className="hidden sm:inline text-slate-300">
-                ·
-              </span>
-              <span className="text-[#1D4ED8]">
-                Batch 1 Mentorship (12 Spots)
-              </span>
-            </div>
+            <motion.button
+              type="button"
+              onClick={() => onEnrollClick('lifetime')}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+              className="btn-sheen violet-cta-glow inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[15px] font-semibold text-white sm:w-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+            >
+              <span>Join GTA 6 Mentorship</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </motion.button>
 
-            <h1 className="font-display text-[clamp(2.1rem,4vw,3.35rem)] font-extrabold leading-[1.09] tracking-tight text-slate-900">
-              GTA 6 Clipping Se Sirf 2–3 Din Me{' '}
-              <span className="text-[#1D4ED8]">
-                {TOTAL_EARNED_LABEL[currency]}
-              </span>{' '}
-              Kamaye.
-            </h1>
-
-            <p className="mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-slate-600">
-              Abhi GTA 6 duniya ka sabse bada trend hai — aur is hype se mene
-              khud{' '}
-              <strong className="font-semibold text-slate-900">
-                SBI Bank me ₹42,282.27
-              </strong>{' '}
-              aur live Content Rewards payouts earn kiye hain. Ab wahi exact
-              GTA 6 clipping system main aapko apni Mentorship me sikha raha
-              hoon.
-            </p>
-
-            <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <motion.button
-                type="button"
-                whileHover={{ y: -2, scale: 1.015 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 450, damping: 22 }}
-                onClick={() => onEnrollClick('lifetime')}
-                className="btn-sheen group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-[#1D4ED8] px-6 py-3.5 text-sm sm:text-base font-bold text-white whitespace-nowrap brand-cta-shadow transition-colors duration-150 hover:bg-[#1E40AF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8]"
-              >
-                <span>Join GTA 6 Mentorship</span>
-                <ArrowRight
-                  className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </motion.button>
-
-              <motion.a
-                href="#proof"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: 'spring', stiffness: 450, damping: 24 }}
-                className="group inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-sm sm:text-base font-semibold text-slate-800 whitespace-nowrap transition-colors duration-150 hover:border-[#1D4ED8]/40 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8]"
-              >
-                <span>See All 3 Real Proofs</span>
-                <ArrowDownRight
-                  className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-                  aria-hidden="true"
-                />
-              </motion.a>
-            </div>
-
-            <p className="mt-4 text-xs sm:text-sm text-slate-500">
-              100% Practical Hinglish Mentorship · Instant Access via UPI, Card,
-              EasyPaisa & JazzCash
-            </p>
+            <motion.a
+              href="#proof-vault"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+              className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-[15px] font-semibold text-zinc-100 backdrop-blur-md transition-colors hover:border-violet-400/40 hover:bg-white/[0.08] sm:w-auto"
+            >
+              <span>Inspect All 9 Real Proofs</span>
+              <ArrowUpRight className="h-4 w-4 text-violet-300" aria-hidden="true" />
+            </motion.a>
           </motion.div>
 
+          {/* Inline Trust Strip */}
           <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.66 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-zinc-400"
           >
-            <button
-              type="button"
-              onClick={() => onSelectProof(featuredProof)}
-              aria-label="Zoom verified SBI bank transfer payout screenshot of ₹42,282.27"
-              className="group w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left soft-card-shadow transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1D4ED8]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8]"
-            >
-              <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/80 px-4 py-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#059669]">
-                  <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
-                  <span>Verified GTA 6 Payout · 20–21 Nov</span>
-                </div>
-                <span className="inline-flex items-center gap-1 text-xs font-semibold text-[#1D4ED8] group-hover:underline">
-                  <Expand className="h-3.5 w-3.5" aria-hidden="true" />
-                  Zoom
-                </span>
-              </div>
-
-              <div className="bg-slate-50 p-3 sm:p-4">
-                <img
-                  src={featuredProof.imageSrc}
-                  alt={featuredProof.imageAlt}
-                  referrerPolicy="no-referrer"
-                  className="w-full rounded-xl border border-slate-200/80 bg-white object-contain"
-                />
-              </div>
-
-              <div className="flex items-center justify-between gap-3 border-t border-slate-100 px-4 py-3.5">
-                <div>
-                  <p className="text-xs text-slate-500">
-                    State Bank of India Settlement
-                  </p>
-                  <p className="font-mono text-lg font-bold text-[#059669] tabular-nums">
-                    ₹42,282.27 INR{' '}
-                    <span className="text-xs font-medium text-slate-500">
-                      (+$467.21)
-                    </span>
-                  </p>
-                </div>
-                <span className="text-xs font-medium text-slate-500 whitespace-nowrap">
-                  2–3 Day Sprint
-                </span>
-              </div>
-            </button>
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+              Phone (CapCut) & PC dono ke liye
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-violet-400" aria-hidden="true" />
+              UPI · USDT TRC-20 · EasyPaisa Accepted
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+              5-Min Instant Telegram Onboarding
+            </span>
           </motion.div>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 border-t border-slate-200/80 pt-7 lg:grid-cols-4 lg:gap-6">
-          {stats.map((stat) => (
-            <div key={stat.label} className="space-y-0.5">
-              <p className="font-mono text-lg sm:text-xl font-bold tracking-tight text-slate-900 tabular-nums">
-                {stat.value}
-              </p>
-              <p className="text-xs sm:text-sm text-slate-500">{stat.label}</p>
+        {/* Quantix-Style Floating Dark Glass Payout & Analytics Showcase Deck */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
+          className="relative mx-auto mt-12 max-w-5xl"
+        >
+          {/* Ambient violet glow halo behind the dashboard */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-6 -top-8 bottom-8 -z-10 rounded-full opacity-55 blur-[90px]"
+            style={{
+              background:
+                'radial-gradient(ellipse at 50% 20%, rgba(139, 92, 246, 0.45), rgba(7, 5, 15, 0) 72%)',
+            }}
+          />
+
+          <div className="glass-card overflow-hidden rounded-3xl p-4 sm:p-6">
+            {/* Deck Top Bar with Currency Switcher */}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]" />
+                <span className="font-display text-sm font-bold text-white">
+                  Verified GTA 6 Mentor Payout Ledger
+                </span>
+                <span className="hidden rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 font-mono text-[11px] text-zinc-400 sm:inline-block">
+                  9 Unedited Proofs
+                </span>
+              </div>
+
+              <div
+                role="group"
+                aria-label="Select display currency"
+                className="inline-flex items-center rounded-full border border-white/10 bg-[#07050F]/80 p-1"
+              >
+                {CURRENCIES.map((code) => {
+                  const active = currency === code;
+                  return (
+                    <button
+                      key={code}
+                      type="button"
+                      onClick={() => onCurrencyChange(code)}
+                      aria-pressed={active}
+                      className={`rounded-full px-3 py-1 text-xs font-semibold transition-all ${
+                        active
+                          ? 'bg-violet-600 text-white shadow-[0_0_14px_rgba(139,92,246,0.7)]'
+                          : 'text-zinc-400 hover:text-white'
+                      }`}
+                    >
+                      {CURRENCY_META[code].label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          ))}
+
+            {/* 3 KPI Stat Cards */}
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0B0816]/90 p-4">
+                <div className="flex items-center justify-between text-xs text-zinc-400">
+                  <span>SBI Bank Settlement (2–3 Days)</span>
+                  <Landmark className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+                </div>
+                <p className="mt-2 font-mono text-2xl font-extrabold text-emerald-400 tabular-nums sm:text-[26px]">
+                  {HERO_SBI_LABEL[currency]}
+                </p>
+                <p className="mt-1 text-[11px] text-zinc-400">
+                  Direct wire transfer · 20–21 Nov
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0B0816]/90 p-4">
+                <div className="flex items-center justify-between text-xs text-zinc-400">
+                  <span>30-Day Verified Views</span>
+                  <Eye className="h-4 w-4 text-violet-400" aria-hidden="true" />
+                </div>
+                <p className="mt-2 font-mono text-2xl font-extrabold text-white tabular-nums sm:text-[26px]">
+                  1,302,905
+                </p>
+                <p className="mt-1 text-[11px] text-zinc-400">
+                  85/90 clips approved · $658.30 paid
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-violet-500/25 bg-gradient-to-b from-violet-500/12 to-[#0B0816]/90 p-4">
+                <div className="flex items-center justify-between text-xs text-violet-200/90">
+                  <span>Total Verified Proof Shown</span>
+                  <BarChart3 className="h-4 w-4 text-violet-300" aria-hidden="true" />
+                </div>
+                <p className="mt-2 font-mono text-2xl font-extrabold text-white tabular-nums sm:text-[26px]">
+                  {HERO_TOTAL_SHOWN[currency]}
+                </p>
+                <p className="mt-1 text-[11px] text-violet-200/75">
+                  Bank Wires & Private Clipping Platforms
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Real Proof Previews + Quantix Purple Bar Graph */}
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-12">
+              {/* Left: Clickable SBI Bank Transfer Proof */}
+              <button
+                type="button"
+                onClick={() => onSelectProof(sbiProof)}
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0714] p-4 text-left transition-all hover:border-violet-400/45 lg:col-span-5"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">
+                      Bank Transfer Proof
+                    </p>
+                    <p className="mt-0.5 font-display text-sm font-bold text-white">
+                      SBI Wire · ₹42,282.27 (+$467.21)
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-zinc-200 transition-colors group-hover:border-violet-400/40 group-hover:text-white">
+                    Zoom
+                    <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
+                </div>
+
+                <div className="mt-3 overflow-hidden rounded-xl border border-white/10 bg-white p-2">
+                  <img
+                    src={sbiProof.imageSrc}
+                    alt={sbiProof.imageAlt}
+                    className="h-auto w-full rounded-lg object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+                  />
+                </div>
+              </button>
+
+              {/* Middle: Clickable 1.3M Views Dark Analytics Proof */}
+              <button
+                type="button"
+                onClick={() => onSelectProof(viralViewsProof)}
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0714] p-4 text-left transition-all hover:border-violet-400/45 lg:col-span-4"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider text-violet-300">
+                      Viral Analytics Proof
+                    </p>
+                    <p className="mt-0.5 font-display text-sm font-bold text-white">
+                      1.3M+ Views · $658.30 Paid
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-zinc-200 transition-colors group-hover:border-violet-400/40 group-hover:text-white">
+                    Inspect
+                    <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+                  </span>
+                </div>
+
+                <div className="mt-3 flex aspect-[16/11] w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-[#0E0D0F] p-1.5">
+                  <img
+                    src={viralViewsProof.imageSrc}
+                    alt={viralViewsProof.imageAlt}
+                    className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+              </button>
+
+              {/* Right: Quantix-Style Violet Momentum Bar Visualizer */}
+              <div className="flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0A0714] p-4 lg:col-span-3">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
+                    Payout Velocity
+                  </p>
+                  <p className="mt-1 font-display text-sm font-bold text-white">
+                    GTA 6 Campaign Growth
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-400">
+                    95%+ clip approval on private clipping platforms (revealed inside mentorship).
+                  </p>
+                </div>
+
+                <div
+                  aria-hidden="true"
+                  className="mt-4 flex h-28 items-end gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3"
+                >
+                  {DASHBOARD_BARS.map((height, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ scaleY: 0.15, opacity: 0.4 }}
+                      animate={{ scaleY: 1, opacity: 1 }}
+                      transition={{
+                        duration: 0.55,
+                        delay: 0.65 + idx * 0.045,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      style={{
+                        height: `${height}%`,
+                        transformOrigin: 'bottom',
+                      }}
+                      className={`flex-1 rounded-t-md ${
+                        idx >= 7
+                          ? 'bg-gradient-to-t from-violet-600 to-violet-300 shadow-[0_0_16px_rgba(139,92,246,0.65)]'
+                          : 'bg-gradient-to-t from-violet-950/90 to-violet-500/65'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Smooth Infinite Marquee Strip (Quantix + Web Angles signature) */}
+      <div className="mt-12 border-y border-white/[0.07] bg-white/[0.02] py-3.5">
+        <div className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-[#07050F] to-transparent sm:w-28" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-[#07050F] to-transparent sm:w-28" />
+          <div className="animate-marquee flex items-center gap-8 pr-8">
+            {[...MARQUEE_METRICS, ...MARQUEE_METRICS].map((metric, idx) => (
+              <div
+                key={`${metric.label}-${idx}`}
+                className="flex shrink-0 items-center gap-2.5 text-xs"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-violet-400" />
+                <span className="font-medium text-zinc-400">{metric.label}</span>
+                <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-0.5 font-mono font-semibold text-white tabular-nums">
+                  {metric.value}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

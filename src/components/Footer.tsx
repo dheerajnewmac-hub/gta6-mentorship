@@ -1,69 +1,50 @@
-import { Mail, ShieldCheck } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export function Footer() {
   return (
-    <footer className="bg-[#FAFAFB] pt-10 pb-22 md:pb-10">
+    <footer className="border-t border-white/[0.07] bg-[#05030B] pb-24 pt-12 md:pb-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between border-b border-slate-200 pb-6">
-          <a
-            href="#top"
-            className="inline-flex items-center gap-2 text-base font-bold text-slate-900"
-          >
-            <span
-              aria-hidden="true"
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1D4ED8] text-white"
-            >
-              <ShieldCheck className="h-4 w-4" />
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 text-white ring-1 ring-white/20">
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
             </span>
-            <span className="font-display">
-              GTA 6 <span className="text-[#1D4ED8]">Clipping</span> Mentorship
-            </span>
-          </a>
-
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-            <a href="#proof" className="hover:text-slate-900 transition-colors">
-              My Earnings
-            </a>
-            <a
-              href="#gta6-earning"
-              className="hover:text-slate-900 transition-colors"
-            >
-              How You Earn
-            </a>
-            <a
-              href="#mentorship"
-              className="hover:text-slate-900 transition-colors"
-            >
-              Mentorship
-            </a>
-            <a
-              href="#pricing"
-              className="hover:text-slate-900 transition-colors"
-            >
-              Pricing
-            </a>
+            <div>
+              <p className="font-display text-sm font-bold text-white">
+                GTA 6 Clipping Mentorship
+              </p>
+              <p className="text-xs text-zinc-500">
+                India · Pakistan · Global Creators (UPI / USDT TRC-20 / Telegram)
+              </p>
+            </div>
           </div>
 
-          <a
-            href="mailto:support@gta6clippingmastery.com"
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-700 hover:text-[#1D4ED8] transition-colors"
-          >
-            <Mail className="h-4 w-4 text-[#1D4ED8]" aria-hidden="true" />
-            <span>support@gta6clippingmastery.com</span>
-          </a>
+          <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-zinc-400">
+            <a href="#proof-vault" className="hover:text-white">
+              Results (9)
+            </a>
+            <a href="#blueprint" className="hover:text-white">
+              How It Works
+            </a>
+            <a href="#curriculum" className="hover:text-white">
+              Curriculum
+            </a>
+            <a href="#pricing" className="hover:text-white">
+              Pricing
+            </a>
+            <a href="#faq" className="hover:text-white">
+              FAQ
+            </a>
+          </div>
         </div>
 
-        <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs text-slate-500">
-          <p>
-            © {new Date().getFullYear()} GTA 6 Clipping Mentorship. Privacy
-            Policy · Mentorship Terms.
-          </p>
-          <p className="max-w-xl sm:text-right">
-            Disclaimer: Not affiliated with Rockstar Games. Shared bank &
-            reward screenshots are real personal results; individual earnings
-            depend on daily consistency.
-          </p>
-        </div>
+        <p className="mt-8 border-t border-white/[0.06] pt-6 text-[11px] leading-relaxed text-zinc-500">
+          Disclaimer: Displayed payout screenshots represent real historical
+          clipping &amp; verified campaign results. Individual results depend on
+          consistent execution, clip quality, and platform guidelines. Independent
+          creator mentorship — not affiliated with Rockstar Games or Take-Two
+          Interactive.
+        </p>
       </div>
     </footer>
   );

@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-canvas: #fafafb;
-  --color-surface: #ffffff;
-  --color-ink: #0f172a;
-  --color-muted: #475569;
-  --color-brand: #1d4ed8;
-  --color-brand-dark: #1e40af;
-  --color-verified: #059669;
+  --color-canvas: #07050f;
+  --color-surface: #0e0a1d;
+  --color-surface-elevated: #140f29;
+  --color-violet-glow: #8b5cf6;
+  --color-violet-core: #7c3aed;
+  --color-verified: #10b981;
 }
 
 @layer base {
   html {
-    background-color: #fafafb;
-    color: #0f172a;
+    background-color: #07050f;
+    color: #ffffff;
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    color-scheme: dark;
+    overflow-x: clip;
   }
 
   body {
-    overflow-x: hidden;
+    background-color: #07050f;
+    overflow-x: clip;
   }
 
   h1,
@@ -39,18 +41,79 @@
   font-variant-numeric: tabular-nums;
 }
 
-.soft-card-shadow {
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.08);
+/* Quantix-inspired subtle cosmic coordinate grid */
+.cosmic-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(167, 139, 250, 0.065) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(167, 139, 250, 0.065) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 25%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 25%, #000 35%, transparent 100%);
 }
 
-.brand-cta-shadow {
-  box-shadow: 0 8px 20px -6px rgba(29, 78, 216, 0.42);
+/* Signature Quantix + Web Angles dark glass card */
+.glass-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 20px 50px -24px rgba(0, 0, 0, 0.85);
 }
 
-.brand-cta-shadow:hover {
-  box-shadow: 0 14px 28px -6px rgba(29, 78, 216, 0.56);
+.glass-card-hover {
+  transition:
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.glass-card-hover:hover {
+  border-color: rgba(139, 92, 246, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 24px 60px -24px rgba(124, 58, 237, 0.32);
+}
+
+/* Highlighted VIP card with soft luminous violet crown */
+.vip-cosmic-card {
+  background: linear-gradient(
+    180deg,
+    rgba(124, 58, 237, 0.22) 0%,
+    rgba(20, 14, 41, 0.94) 34%,
+    rgba(11, 8, 23, 0.98) 100%
+  );
+  border: 1px solid rgba(139, 92, 246, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(196, 181, 253, 0.35),
+    0 0 0 1px rgba(139, 92, 246, 0.15),
+    0 32px 80px -24px rgba(124, 58, 237, 0.45);
+}
+
+/* Quantix signature luminous violet pill button */
+.violet-cta-glow {
+  background: linear-gradient(180deg, #8b5cf6 0%, #6d28d9 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 0 0 1px rgba(167, 139, 250, 0.35),
+    0 12px 32px -6px rgba(124, 58, 237, 0.65);
+  transition:
+    box-shadow 0.22s ease,
+    filter 0.22s ease;
+}
+
+.violet-cta-glow:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 0 0 1px rgba(196, 181, 253, 0.5),
+    0 16px 40px -6px rgba(139, 92, 246, 0.8);
+}
+
+/* Shimmer sweep on primary CTAs */
 .btn-sheen {
   position: relative;
   overflow: hidden;
@@ -60,23 +123,48 @@
   content: "";
   position: absolute;
   inset: 0;
-  width: 45%;
+  width: 42%;
   background: linear-gradient(
     110deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0.26) 50%,
     transparent 100%
   );
-  transform: translateX(-160%) skewX(-18deg);
+  transform: translateX(-165%) skewX(-18deg);
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 .btn-sheen:hover::after {
-  transform: translateX(320%) skewX(-18deg);
+  transform: translateX(330%) skewX(-18deg);
+}
+
+/* Smooth GPU-composited infinite marquee (inspired by Quantix + Web Angles) */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 34s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
   *,
   *::before,
   *::after {

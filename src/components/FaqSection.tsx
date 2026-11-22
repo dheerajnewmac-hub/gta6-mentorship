@@ -1,67 +1,118 @@
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { FAQ_ITEMS } from '../data/content';
+import { PlanId } from '../utils/pricing';
 
-export function FaqSection() {
+interface FaqSectionProps {
+  onEnrollClick: (plan?: PlanId) => void;
+}
+
+export function FaqSection({ onEnrollClick }: FaqSectionProps) {
   const [openId, setOpenId] = useState<string | null>(FAQ_ITEMS[0].id);
-
-  const toggleItem = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id));
-  };
 
   return (
     <section
       id="faq"
-      aria-labelledby="faq-heading"
-      className="border-b border-slate-200/80 bg-white py-14 sm:py-16"
+      className="relative scroll-mt-20 border-t border-white/[0.06] py-16 sm:py-24"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <p className="text-xs sm:text-sm font-semibold text-[#1D4ED8]">
-            Quick Answers
-          </p>
-          <h2
-            id="faq-heading"
-            className="mt-1.5 font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900"
-          >
-            Frequently Asked Questions
+        <div className="text-center">
+          <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-violet-500/80" />
+            <span>05 · FAQ</span>
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-violet-500/80" />
+          </div>
+
+          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+            Aapke Sawal, Seedhe Jawab
           </h2>
+          <p className="mt-3 text-sm text-zinc-400 sm:text-base">
+            Join karne se pehle har zaroori doubt yahan clear kar lo.
+          </p>
         </div>
 
-        <div className="mt-7 divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-[#FAFAFB]">
+        <div className="mt-10 space-y-3">
           {FAQ_ITEMS.map((item) => {
             const isOpen = openId === item.id;
-            const panelId = `${item.id}-panel`;
             return (
-              <div key={item.id}>
-                <h3>
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => toggleItem(item.id)}
-                    className="flex w-full items-center justify-between gap-4 px-5 sm:px-6 py-4.5 text-left text-sm sm:text-base font-semibold text-slate-900 transition-colors hover:text-[#1D4ED8] focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#1D4ED8]"
+              <div
+                key={item.id}
+                className={`overflow-hidden rounded-2xl border transition-colors ${
+                  isOpen
+                    ? 'border-violet-400/40 bg-violet-500/[0.08]'
+                    : 'border-white/[0.08] bg-white/[0.025] hover:border-white/15'
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenId(isOpen ? null : item.id)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-violet-400"
+                >
+                  <span className="font-display text-sm font-bold text-white sm:text-base">
+                    {item.question}
+                  </span>
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-zinc-300 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 border-violet-400/40 text-violet-200' : ''
+                    }`}
                   >
-                    <span>{item.question}</span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-slate-400 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-[#1D4ED8]' : ''
-                      }`}
-                      aria-hidden="true"
-                    />
-                  </button>
-                </h3>
-                {isOpen && (
-                  <div
-                    id={panelId}
-                    className="px-5 sm:px-6 pb-4.5 text-sm leading-relaxed text-slate-600"
-                  >
-                    {item.answer}
-                  </div>
-                )}
+                    <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border-t border-white/[0.07] px-5 pb-5 pt-3.5 text-sm leading-relaxed text-zinc-300 sm:px-6">
+                        {item.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             );
           })}
+        </div>
+
+        {/* Quantix-Style Final Luminous Violet CTA Block */}
+        <div className="vip-cosmic-card relative mt-16 overflow-hidden rounded-3xl p-8 text-center sm:mt-20 sm:p-12">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-0 -z-10 h-48 w-96 -translate-x-1/2 rounded-full bg-violet-500/35 blur-3xl"
+          />
+
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">
+            GTA 6 Hype Wave Won&apos;t Wait
+          </p>
+          <h3 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            Agle 30 Din Me Apna GTA 6 Clipping System Ready Karo
+          </h3>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-zinc-300 sm:text-base">
+            9 verified real proofs dekh chuke ho. Ab seedha Batch 1 join karo aur
+            UPI, USDT (TRC-20) ya EasyPaisa se 5 minute me onboarding start karo.
+          </p>
+
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <motion.button
+              type="button"
+              onClick={() => onEnrollClick('lifetime')}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+              className="btn-sheen violet-cta-glow inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[15px] font-semibold text-white sm:w-auto"
+            >
+              <span>Claim Lifetime VIP Access</span>
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </motion.button>
+          </div>
         </div>
       </div>
     </section>

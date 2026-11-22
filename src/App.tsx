@@ -25,16 +25,13 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFB] text-slate-900">
-      <Header
-        currency={currency}
-        onCurrencyChange={setCurrency}
-        onEnrollClick={openCheckout}
-      />
+    <div className="min-h-screen bg-[#07050F] text-white selection:bg-violet-500/40 selection:text-white">
+      <Header onEnrollClick={openCheckout} />
 
       <main>
         <HeroSection
           currency={currency}
+          onCurrencyChange={setCurrency}
           onEnrollClick={openCheckout}
           onSelectProof={setSelectedProof}
         />
@@ -45,7 +42,7 @@ export default function App() {
           onCurrencyChange={setCurrency}
           onSelectPlan={openCheckout}
         />
-        <FaqSection />
+        <FaqSection onEnrollClick={openCheckout} />
       </main>
 
       <Footer />

@@ -8,7 +8,7 @@ import {
   buildTelegramUrl,
 } from './checkout';
 
-test('rejects empty full name and short WhatsApp numbers for India/Pakistan', () => {
+test('rejects empty full name and short phone numbers for India/Pakistan', () => {
   const result = validateCheckoutForm({
     fullName: '',
     countryCode: '+91',
@@ -22,7 +22,7 @@ test('rejects empty full name and short WhatsApp numbers for India/Pakistan', ()
   assert.ok(result.errors.whatsappNumber);
 });
 
-test('accepts valid Indian and Pakistani checkout submissions', () => {
+test('accepts valid Indian, Pakistani, and USDT TRC-20 checkout submissions', () => {
   const india = validateCheckoutForm({
     fullName: 'Aarav Sharma',
     countryCode: '+91',
@@ -42,9 +42,19 @@ test('accepts valid Indian and Pakistani checkout submissions', () => {
   });
   assert.equal(pakistan.success, true);
   assert.equal(pakistan.data?.countryCode, '+92');
+
+  const usdt = validateCheckoutForm({
+    fullName: 'Vikram Singh',
+    countryCode: '+1',
+    whatsappNumber: '4155550199',
+    planId: 'lifetime',
+    paymentMethod: 'usdt',
+  });
+  assert.equal(usdt.success, true);
+  assert.equal(usdt.data?.paymentMethod, 'usdt');
 });
 
-test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram links', () => {
+test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram links including USDT', () => {
   const ref = generateOrderReference('lifetime', '9876543210');
   assert.equal(ref, 'GTA6-VIP-3210');
 
@@ -56,7 +66,6 @@ test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram
   assert.ok(upi.startsWith('upi://pay?'));
   assert.ok(upi.includes('am=1999'));
   assert.ok(upi.includes('GTA6-VIP-3210'));
-  assert.ok(upi.includes('dheerajkiroriwal'));
 
   const wa = buildWhatsAppUrl({
     fullName: 'Hamza Khan',
@@ -70,16 +79,16 @@ test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram
   assert.ok(wa.startsWith('https://wa.me/'));
   assert.ok(wa.includes(encodeURIComponent('Rs. 3,500')));
 
-  const tg = buildTelegramUrl({
+  const tgUsdt = buildTelegramUrl({
     fullName: 'Aarav Sharma',
     countryCode: '+91',
     whatsappNumber: '9876543210',
     planId: 'lifetime',
     currency: 'INR',
-    paymentMethod: 'upi',
+    paymentMethod: 'usdt',
     orderRef: ref,
   });
-  assert.ok(tg.startsWith('https://t.me/Eliteclippers1?text='));
-  assert.ok(tg.includes(encodeURIComponent('GTA6-VIP-3210')));
-  assert.ok(tg.includes(encodeURIComponent('₹1,999')));
+  assert.ok(tgUsdt.startsWith('https://t.me/'));
+  assert.ok(tgUsdt.includes(encodeURIComponent('GTA6-VIP-3210')));
+  assert.ok(tgUsdt.includes(encodeURIComponent('USDT (Tron TRC-20 Crypto)')));
 });

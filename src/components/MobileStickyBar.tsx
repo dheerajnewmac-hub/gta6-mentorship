@@ -1,10 +1,10 @@
 import { motion } from 'motion/react';
-import { Send } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { CurrencyCode, PlanId, getPlanPriceInfo } from '../utils/pricing';
 
 interface MobileStickyBarProps {
   currency: CurrencyCode;
-  onEnrollClick: (planId: PlanId) => void;
+  onEnrollClick: (plan?: PlanId) => void;
 }
 
 export function MobileStickyBar({
@@ -12,42 +12,34 @@ export function MobileStickyBar({
   onEnrollClick,
 }: MobileStickyBarProps) {
   const lifetime = getPlanPriceInfo('lifetime', currency);
-  const monthly = getPlanPriceInfo('monthly', currency);
 
   return (
-    <div
-      data-testid="mobile-sticky-bar"
-      className="fixed inset-x-0 bottom-0 z-40 flex h-14 items-center justify-between gap-3 border-t border-slate-200 bg-white/95 px-4 backdrop-blur-md shadow-[0_-4px_16px_rgba(15,23,42,0.06)] md:hidden"
-    >
-      <div className="min-w-0">
-        <p className="font-mono text-sm font-extrabold text-slate-900 tabular-nums truncate">
-          {monthly.currentFormatted}/mo · {lifetime.currentFormatted} VIP
-        </p>
-        <p className="text-[11px] font-medium text-[#059669] truncate">
-          GTA 6 Batch 1 · 12 Spots
-        </p>
-      </div>
-
-      <div className="flex items-center gap-2 shrink-0">
-        <motion.button
-          type="button"
-          whileTap={{ scale: 0.94 }}
-          onClick={() => onEnrollClick('lifetime')}
-          aria-label="Quick Telegram Enrollment"
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-sky-200 bg-sky-50 text-[#0088cc] transition-colors hover:bg-sky-100"
-        >
-          <Send className="h-4 w-4" aria-hidden="true" />
-        </motion.button>
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/[0.1] bg-[#0B0816]/95 px-4 py-2.5 backdrop-blur-xl md:hidden">
+      <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-[11px] font-semibold text-violet-300">
+            Lifetime VIP Access
+          </p>
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-mono text-base font-extrabold text-white tabular-nums">
+              {lifetime.currentFormatted}
+            </span>
+            {lifetime.regularFormatted && (
+              <span className="font-mono text-xs text-zinc-500 line-through tabular-nums">
+                {lifetime.regularFormatted}
+              </span>
+            )}
+          </div>
+        </div>
 
         <motion.button
           type="button"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.96 }}
-          transition={{ type: 'spring', stiffness: 450, damping: 24 }}
           onClick={() => onEnrollClick('lifetime')}
-          className="btn-sheen inline-flex h-10 items-center justify-center rounded-lg bg-[#1D4ED8] px-4 text-xs font-bold text-white whitespace-nowrap brand-cta-shadow hover:bg-[#1E40AF]"
+          whileTap={{ scale: 0.97 }}
+          className="btn-sheen violet-cta-glow inline-flex min-h-[42px] shrink-0 items-center justify-center gap-1.5 rounded-full px-5 py-2 text-xs font-semibold text-white"
         >
-          Join Mentorship
+          <span>Join Batch 1</span>
+          <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
         </motion.button>
       </div>
     </div>

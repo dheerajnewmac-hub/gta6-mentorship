@@ -72,7 +72,7 @@ export const PRICING_PLANS: Record<PlanId, PlanPricing> = {
     },
     features: [
       'Complete GTA 6 Clipping Video Modules (Phone + PC)',
-      'Active GTA 6 & Gaming Content Rewards Campaign List',
+      'Secret High-Paying GTA 6 Clipping Platforms & Campaign List',
       'Weekly Live Q&A Calls & Clip Reviews',
       'Copyright Protection & 0-Strike Editing Shield',
       'Private VIP Telegram & Community Access',
@@ -89,7 +89,7 @@ export const PRICING_PLANS: Record<PlanId, PlanPricing> = {
     popular: true,
     prices: {
       INR: { current: 1999, regular: 9999 },
-      PKR: { current: 6499, regular: 31500 },
+      PKR: { current: 6500, regular: 32500 },
       USD: { current: 24, regular: 119 },
     },
     features: [

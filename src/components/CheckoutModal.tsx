@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Lock, MessageCircle, Smartphone, X } from 'lucide-react';
+import { Coins, Lock, MessageCircle, Smartphone, X } from 'lucide-react';
 import {
   COUNTRY_CODES,
   CheckoutFormValues,
@@ -36,7 +36,7 @@ export function CheckoutModal({
   const [whatsappNumber, setWhatsappNumber] = useState('');
   const [planId, setPlanId] = useState<PlanId>(initialPlan);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-    currency === 'PKR' ? 'whatsapp' : 'upi'
+    currency === 'PKR' ? 'whatsapp' : currency === 'USD' ? 'usdt' : 'upi'
   );
   const [errors, setErrors] = useState<
     Partial<Record<keyof CheckoutFormValues, string>>
@@ -53,7 +53,9 @@ export function CheckoutModal({
       setCountryCode(
         currency === 'PKR' ? '+92' : currency === 'USD' ? '+1' : '+91'
       );
-      setPaymentMethod(currency === 'PKR' ? 'whatsapp' : 'upi');
+      setPaymentMethod(
+        currency === 'PKR' ? 'whatsapp' : currency === 'USD' ? 'usdt' : 'upi'
+      );
     }
   }, [isOpen, initialPlan, currency]);
 
@@ -95,35 +97,35 @@ export function CheckoutModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="checkout-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/65 p-4 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#04020A]/85 p-4 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0.96, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 sm:p-7 shadow-2xl"
+        className="relative max-h-[92vh] w-full max-w-xl overflow-y-auto rounded-3xl border border-violet-400/25 bg-[#0E0A1D] p-5 shadow-[0_32px_90px_-20px_rgba(0,0,0,0.95)] sm:p-7"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
+        <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-4">
           <div>
-            <p className="text-xs font-semibold text-[#1D4ED8]">
-              Batch 1 Quick Enrollment
+            <p className="text-xs font-semibold text-emerald-400">
+              Batch 1 Instant Enrollment
             </p>
             <h3
               id="checkout-modal-title"
-              className="mt-1 font-display text-2xl font-extrabold text-slate-900"
+              className="mt-1 font-display text-2xl font-extrabold text-white"
             >
               {validatedData
                 ? 'Complete Your Payment'
-                : 'Join Mentorship Now'}
+                : 'Join GTA 6 Mentorship'}
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close checkout modal"
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-2 focus-visible:outline-[#1D4ED8]"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-zinc-300 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-violet-400"
           >
             <X className="h-5 w-5" />
           </button>
@@ -140,7 +142,7 @@ export function CheckoutModal({
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
               <fieldset>
-                <legend className="text-xs font-semibold text-slate-700">
+                <legend className="text-xs font-semibold text-zinc-300">
                   Selected Plan
                 </legend>
                 <div className="mt-2 grid grid-cols-2 gap-3">
@@ -156,16 +158,20 @@ export function CheckoutModal({
                         type="button"
                         onClick={() => setPlanId(id)}
                         aria-pressed={active}
-                        className={`rounded-xl border p-3 text-left transition-colors ${
+                        className={`rounded-2xl border p-3.5 text-left transition-all ${
                           active
-                            ? 'border-[#1D4ED8] bg-blue-50/50 ring-1 ring-[#1D4ED8]/20'
-                            : 'border-slate-200 bg-slate-50 hover:border-slate-300'
+                            ? 'border-violet-400/60 bg-violet-500/20 text-white shadow-[0_0_24px_-8px_rgba(139,92,246,0.7)]'
+                            : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-white/20'
                         }`}
                       >
-                        <p className="text-xs font-semibold text-slate-900">
+                        <p className="text-xs font-semibold">
                           {PRICING_PLANS[id].name}
                         </p>
-                        <p className="mt-1 font-mono text-sm font-bold text-[#059669] tabular-nums">
+                        <p
+                          className={`mt-1 font-mono text-sm font-bold tabular-nums ${
+                            active ? 'text-emerald-300' : 'text-emerald-400'
+                          }`}
+                        >
                           {priceText}
                         </p>
                       </button>
@@ -177,7 +183,7 @@ export function CheckoutModal({
               <div>
                 <label
                   htmlFor="checkout-full-name"
-                  className="block text-xs font-semibold text-slate-700"
+                  className="block text-xs font-semibold text-zinc-300"
                 >
                   Full Name
                 </label>
@@ -194,10 +200,10 @@ export function CheckoutModal({
                     }
                   }}
                   aria-invalid={Boolean(errors.fullName)}
-                  className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1D4ED8] focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/15"
+                  className="mt-1.5 w-full rounded-xl border border-white/15 bg-[#07050F] px-3.5 py-3 text-sm text-white placeholder:text-zinc-500 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/25"
                 />
                 {errors.fullName && (
-                  <p role="alert" className="mt-1.5 text-xs font-medium text-rose-600">
+                  <p role="alert" className="mt-1.5 text-xs font-medium text-rose-400">
                     {errors.fullName}
                   </p>
                 )}
@@ -206,9 +212,9 @@ export function CheckoutModal({
               <div>
                 <label
                   htmlFor="checkout-whatsapp"
-                  className="block text-xs font-semibold text-slate-700"
+                  className="block text-xs font-semibold text-zinc-300"
                 >
-                  WhatsApp Number (Instant Course Access)
+                  Phone / Telegram Number (Instant Access)
                 </label>
                 <div className="mt-1.5 flex gap-2">
                   <select
@@ -217,10 +223,10 @@ export function CheckoutModal({
                     onChange={(e) =>
                       setCountryCode(e.target.value as CountryCode)
                     }
-                    className="rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm font-mono text-slate-900 focus:border-[#1D4ED8] focus:outline-none"
+                    className="rounded-xl border border-white/15 bg-[#07050F] px-3 py-3 font-mono text-sm text-white focus:border-violet-400 focus:outline-none"
                   >
                     {COUNTRY_CODES.map((c) => (
-                      <option key={c.code} value={c.code}>
+                      <option key={c.code} value={c.code} className="bg-[#0E0A1D]">
                         {c.label}
                       </option>
                     ))}
@@ -229,7 +235,7 @@ export function CheckoutModal({
                     id="checkout-whatsapp"
                     type="tel"
                     inputMode="numeric"
-                    placeholder="10-digit WhatsApp number"
+                    placeholder="10-digit phone number"
                     value={whatsappNumber}
                     onChange={(e) => {
                       setWhatsappNumber(e.target.value);
@@ -241,53 +247,70 @@ export function CheckoutModal({
                       }
                     }}
                     aria-invalid={Boolean(errors.whatsappNumber)}
-                    className="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-3.5 py-3 text-sm font-mono text-slate-900 placeholder:text-slate-400 focus:border-[#1D4ED8] focus:outline-none focus:ring-2 focus:ring-[#1D4ED8]/15"
+                    className="min-w-0 flex-1 rounded-xl border border-white/15 bg-[#07050F] px-3.5 py-3 font-mono text-sm text-white placeholder:text-zinc-500 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/25"
                   />
                 </div>
                 {errors.whatsappNumber && (
-                  <p role="alert" className="mt-1.5 text-xs font-medium text-rose-600">
+                  <p role="alert" className="mt-1.5 text-xs font-medium text-rose-400">
                     {errors.whatsappNumber}
                   </p>
                 )}
               </div>
 
               <fieldset>
-                <legend className="text-xs font-semibold text-slate-700">
+                <legend className="text-xs font-semibold text-zinc-300">
                   Preferred Payment Mode
                 </legend>
-                <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('upi')}
                     aria-pressed={paymentMethod === 'upi'}
-                    className={`flex items-center gap-2.5 rounded-xl border p-3 text-left text-xs font-semibold transition-colors ${
+                    className={`flex items-center gap-2 rounded-xl border p-3 text-left text-xs font-semibold transition-all ${
                       paymentMethod === 'upi'
-                        ? 'border-[#1D4ED8] bg-blue-50/50 text-slate-900'
-                        : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                        ? 'border-violet-400/60 bg-violet-500/20 text-white'
+                        : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-white/20'
                     }`}
                   >
                     <Smartphone
-                      className="h-4 w-4 shrink-0 text-[#1D4ED8]"
+                      className="h-4 w-4 shrink-0 text-violet-300"
                       aria-hidden="true"
                     />
-                    <span>UPI / GPay / PhonePe / Paytm / Card</span>
+                    <span>UPI / GPay / PhonePe</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('usdt')}
+                    aria-pressed={paymentMethod === 'usdt'}
+                    className={`flex items-center gap-2 rounded-xl border p-3 text-left text-xs font-semibold transition-all ${
+                      paymentMethod === 'usdt'
+                        ? 'border-emerald-400/60 bg-emerald-500/15 text-white'
+                        : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-white/20'
+                    }`}
+                  >
+                    <Coins
+                      className="h-4 w-4 shrink-0 text-emerald-400"
+                      aria-hidden="true"
+                    />
+                    <span>USDT (Tron TRC-20)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('whatsapp')}
                     aria-pressed={paymentMethod === 'whatsapp'}
-                    className={`flex items-center gap-2.5 rounded-xl border p-3 text-left text-xs font-semibold transition-colors ${
+                    className={`flex items-center gap-2 rounded-xl border p-3 text-left text-xs font-semibold transition-all ${
                       paymentMethod === 'whatsapp'
-                        ? 'border-[#059669] bg-emerald-50/60 text-slate-900'
-                        : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                        ? 'border-sky-400/60 bg-sky-500/15 text-white'
+                        : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-white/20'
                     }`}
                   >
                     <MessageCircle
-                      className="h-4 w-4 shrink-0 text-[#059669]"
+                      className="h-4 w-4 shrink-0 text-sky-400"
                       aria-hidden="true"
                     />
-                    <span>Direct WhatsApp / EasyPaisa / JazzCash</span>
+                    <span>EasyPaisa / Telegram</span>
                   </button>
                 </div>
               </fieldset>
@@ -297,14 +320,14 @@ export function CheckoutModal({
                 whileHover={{ y: -1.5, scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ type: 'spring', stiffness: 450, damping: 24 }}
-                className="btn-sheen mt-2 inline-flex min-h-[48px] w-full items-center justify-center rounded-xl bg-[#1D4ED8] px-6 py-3.5 text-sm sm:text-base font-bold text-white brand-cta-shadow transition-colors hover:bg-[#1E40AF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8]"
+                className="btn-sheen violet-cta-glow mt-2 inline-flex min-h-[50px] w-full items-center justify-center rounded-full px-6 py-3.5 text-sm font-semibold text-white sm:text-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
               >
                 Continue to Instant Checkout
               </motion.button>
 
-              <p className="flex items-center justify-center gap-1.5 text-xs text-slate-500">
-                <Lock className="h-3.5 w-3.5 text-[#059669]" aria-hidden="true" />
-                <span>Instant access within 5 minutes after payment</span>
+              <p className="flex items-center justify-center gap-1.5 text-xs text-zinc-400">
+                <Lock className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+                <span>Instant Telegram access within 5 minutes after payment</span>
               </p>
             </form>
           )}

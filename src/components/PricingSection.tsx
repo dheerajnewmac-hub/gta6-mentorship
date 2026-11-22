@@ -1,5 +1,13 @@
-import { motion } from 'motion/react';
-import { ArrowRight, Check, Crown, Users } from 'lucide-react';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import {
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  Crown,
+  Headphones,
+  Sparkles,
+} from 'lucide-react';
 import { MENTORSHIP_PILLARS } from '../data/content';
 import {
   CURRENCY_META,
@@ -15,267 +23,368 @@ interface PricingSectionProps {
   onSelectPlan: (planId: PlanId) => void;
 }
 
-const CURRENCIES: { code: CurrencyCode; label: string }[] = [
-  { code: 'INR', label: 'India (INR ₹)' },
-  { code: 'PKR', label: 'Pakistan (PKR Rs.)' },
-  { code: 'USD', label: 'Global (USD $)' },
-];
+const CURRENCIES: CurrencyCode[] = ['INR', 'PKR', 'USD'];
 
 export function PricingSection({
   currency,
   onCurrencyChange,
   onSelectPlan,
 }: PricingSectionProps) {
-  const orderedPlans: PlanId[] = ['monthly', 'lifetime'];
-  const meta = CURRENCY_META[currency];
+  const [activeModuleId, setActiveModuleId] = useState(
+    MENTORSHIP_PILLARS[0].id
+  );
+
+  const activeModule =
+    MENTORSHIP_PILLARS.find((m) => m.id === activeModuleId) ??
+    MENTORSHIP_PILLARS[0];
+
+  const monthlyPlan = PRICING_PLANS.monthly;
+  const lifetimePlan = PRICING_PLANS.lifetime;
+  const monthlyPrice = getPlanPriceInfo('monthly', currency);
+  const lifetimePrice = getPlanPriceInfo('lifetime', currency);
 
   return (
-    <section
-      id="mentorship"
-      aria-labelledby="mentorship-heading"
-      className="border-b border-slate-200/80 bg-[#FAFAFB] py-14 sm:py-18"
-    >
+    <section className="relative border-t border-white/[0.06] py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          <p className="text-xs sm:text-sm font-semibold text-[#1D4ED8]">
-            GTA 6 Clipping Mentorship · Batch 1
-          </p>
-          <h2
-            id="mentorship-heading"
-            className="mt-1.5 font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900"
-          >
-            Mentorship Me Aapko Exact Kya Milega
-          </h2>
-          <p className="mt-2.5 text-sm sm:text-base text-slate-600">
-            Sirf recorded videos nahi — mera exact GTA 6 clipping workflow,
-            live payout campaigns, ready-made editing pack ({meta.bonusValue}{' '}
-            value included), aur direct mentor support.
-          </p>
-        </div>
+        {/* PART A: INTERACTIVE CURRICULUM EXPLORER */}
+        <div id="curriculum" className="scroll-mt-24">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-violet-500/80" />
+              <span>03 · Inside Mentorship</span>
+              <span className="h-px w-10 bg-gradient-to-l from-transparent to-violet-500/80" />
+            </div>
 
-        <div className="mt-7 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {MENTORSHIP_PILLARS.map((pillar, idx) => (
-            <motion.div
-              key={pillar.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.32,
-                delay: idx * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="rounded-2xl border border-slate-200 bg-white p-5 soft-card-shadow"
-            >
-              <Check
-                className="h-5 w-5 text-[#059669]"
-                aria-hidden="true"
-              />
-              <h3 className="mt-2.5 font-display text-base font-bold text-slate-900">
-                {pillar.title}
-              </h3>
-              <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-slate-600">
-                {pillar.detail}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        <div
-          id="pricing"
-          className="mt-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between scroll-mt-20"
-        >
-          <div>
-            <p className="text-xs sm:text-sm font-semibold text-[#059669]">
-              Simple Transparent Pricing · 12 Spots Left
+            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Step-by-Step GTA 6 Clipping Curriculum
+            </h2>
+            <p className="mt-3 text-sm text-zinc-400 sm:text-base">
+              Zero fluff theory — sirf practical workflows, verified campaigns
+              aur presets jo directly views aur payouts laate hain.
             </p>
-            <h3 className="mt-1 font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
-              Choose Your Mentorship Plan
-            </h3>
           </div>
 
-          <div
-            role="group"
-            aria-label="Pricing currency selector"
-            className="inline-flex items-center gap-1 rounded-xl border border-slate-200 bg-white p-1 self-start md:self-auto"
-          >
-            {CURRENCIES.map((item) => {
-              const active = currency === item.code;
-              return (
-                <button
-                  key={item.code}
-                  type="button"
-                  onClick={() => onCurrencyChange(item.code)}
-                  aria-pressed={active}
-                  className={`rounded-lg px-3 py-1.5 text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-[#1D4ED8] ${
-                    active
-                      ? 'bg-[#1D4ED8] text-white'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-7 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch">
-          {orderedPlans.map((planId) => {
-            const plan = PRICING_PLANS[planId];
-            const price = getPlanPriceInfo(planId, currency);
-            const isVip = plan.popular;
-
-            return (
-              <motion.div
-                key={plan.id}
-                data-testid={`pricing-card-${plan.id}`}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className={`flex flex-col justify-between rounded-2xl border p-6 sm:p-8 soft-card-shadow ${
-                  isVip
-                    ? 'border-[#1D4ED8] bg-white ring-1 ring-[#1D4ED8]/15'
-                    : 'border-slate-200 bg-white'
-                }`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <p
-                      className={`text-xs font-semibold ${
-                        isVip ? 'text-[#1D4ED8]' : 'text-slate-500'
-                      }`}
-                    >
-                      {isVip
-                        ? 'Most Popular · Best Value'
-                        : 'Flexible Monthly Learning'}
-                    </p>
-                    {isVip && (
-                      <Crown
-                        className="h-5 w-5 text-amber-500"
-                        aria-hidden="true"
+          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-12">
+            {/* Left Interactive Module Selector */}
+            <div
+              role="tablist"
+              aria-label="Mentorship curriculum modules"
+              className="flex flex-col gap-2.5 lg:col-span-5"
+            >
+              {MENTORSHIP_PILLARS.map((mod) => {
+                const isSelected = mod.id === activeModule.id;
+                return (
+                  <button
+                    key={mod.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isSelected}
+                    onClick={() => setActiveModuleId(mod.id)}
+                    className={`relative rounded-2xl border p-4 text-left transition-colors ${
+                      isSelected
+                        ? 'border-violet-400/50 bg-violet-500/15 text-white'
+                        : 'border-white/[0.08] bg-white/[0.02] text-zinc-300 hover:border-white/15 hover:bg-white/[0.05]'
+                    }`}
+                  >
+                    {isSelected && (
+                      <motion.span
+                        layoutId="curriculum-active-indicator"
+                        transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                        className="absolute inset-y-3 left-0 w-1 rounded-r-full bg-violet-400 shadow-[0_0_12px_#a78bfa]"
                       />
                     )}
-                  </div>
-
-                  <h4 className="mt-1.5 font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
-                    {plan.name}
-                  </h4>
-                  <p className="mt-1 text-sm text-slate-600">{plan.subtitle}</p>
-
-                  <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-y border-slate-100 py-4">
-                    <span className="font-mono text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 tabular-nums">
-                      {price.currentFormatted}
-                    </span>
-                    <span className="text-sm font-medium text-slate-500">
-                      {plan.billingCycleLabel}
-                    </span>
-                    {price.regularFormatted && (
-                      <span className="font-mono text-sm text-slate-400 line-through tabular-nums">
-                        {price.regularFormatted}
-                      </span>
-                    )}
-                    {price.savingsPercent && (
-                      <span className="font-mono text-xs font-bold text-[#059669] tabular-nums">
-                        Save {price.savingsPercent}%
-                      </span>
-                    )}
-                  </div>
-
-                  <ul className="mt-5 space-y-3">
-                    {plan.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-2.5 text-sm sm:text-base text-slate-700"
+                    <div className="flex items-start gap-3 pl-2">
+                      <span
+                        className={`font-mono text-xs font-bold ${
+                          isSelected ? 'text-violet-300' : 'text-zinc-500'
+                        }`}
                       >
-                        <Check
-                          className={`mt-0.5 h-5 w-5 shrink-0 ${
-                            isVip ? 'text-[#059669]' : 'text-[#1D4ED8]'
-                          }`}
-                          aria-hidden="true"
-                        />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                        {mod.number}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-display text-sm font-bold leading-snug sm:text-[15px]">
+                          {mod.title}
+                        </p>
+                        <p className="mt-1 text-xs text-zinc-400">
+                          {mod.outcome}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
 
-                  <div
-                    className={`mt-5 rounded-xl border px-4 py-3 text-xs sm:text-sm leading-relaxed ${
-                      isVip
-                        ? 'border-emerald-200 bg-emerald-50/70 text-emerald-950 font-medium'
-                        : 'border-slate-200 bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    {plan.shortNote}
+            {/* Right Active Module Detail Panel */}
+            <div className="glass-card relative overflow-hidden rounded-3xl p-6 sm:p-8 lg:col-span-7">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-violet-600/20 blur-3xl"
+              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeModule.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex h-full flex-col justify-between"
+                >
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-500/15 px-3 py-1 font-mono text-xs font-semibold text-violet-200">
+                      <span>MODULE {activeModule.number}</span>
+                    </div>
+
+                    <h3 className="mt-4 font-display text-2xl font-extrabold text-white sm:text-3xl">
+                      {activeModule.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-zinc-300 sm:text-base">
+                      {activeModule.detail}
+                    </p>
+
+                    <div className="mt-6 space-y-3">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                        Included Inside This Module
+                      </p>
+                      {activeModule.deliverables.map((item) => (
+                        <div
+                          key={item}
+                          className="flex items-start gap-3 rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3 text-sm text-zinc-100"
+                        >
+                          <CheckCircle2
+                            className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400"
+                            aria-hidden="true"
+                          />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-6 pt-2">
-                  <motion.button
-                    type="button"
-                    whileHover={{ y: -2, scale: 1.015 }}
-                    whileTap={{ scale: 0.97 }}
-                    transition={{ type: 'spring', stiffness: 450, damping: 22 }}
-                    onClick={() => onSelectPlan(plan.id)}
-                    className={`group inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm sm:text-base font-bold whitespace-nowrap transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8] ${
-                      isVip
-                        ? 'btn-sheen bg-[#1D4ED8] text-white brand-cta-shadow hover:bg-[#1E40AF]'
-                        : 'border border-slate-300 bg-slate-50 text-slate-900 hover:border-[#1D4ED8]/50 hover:bg-slate-100'
-                    }`}
-                  >
-                    <span>{plan.ctaLabel}</span>
-                    <ArrowRight
-                      className="h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </motion.button>
-                  <p className="mt-2.5 text-center text-xs text-slate-500">
-                    UPI · GPay · PhonePe · EasyPaisa · JazzCash · Instant Access
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+                  <div className="mt-6 flex items-center justify-between border-t border-white/[0.08] pt-4 text-xs text-zinc-400">
+                    <span>Outcome: {activeModule.outcome}</span>
+                    <button
+                      type="button"
+                      onClick={() => onSelectPlan('lifetime')}
+                      className="inline-flex items-center gap-1 font-semibold text-violet-300 hover:text-white"
+                    >
+                      <span>Unlock All 4 Modules</span>
+                      <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-4 rounded-2xl border border-blue-200 bg-blue-50/70 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div className="flex items-start gap-3.5">
-            <span
-              aria-hidden="true"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-[#1D4ED8] border border-blue-200"
+        {/* PART B: PRICING SECTION */}
+        <div id="pricing" className="mt-20 scroll-mt-24 sm:mt-28">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
+              <span className="h-px w-10 bg-gradient-to-r from-transparent to-violet-500/80" />
+              <span>04 · Join Batch 1</span>
+              <span className="h-px w-10 bg-gradient-to-l from-transparent to-violet-500/80" />
+            </div>
+
+            <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Apna Mentorship Plan Choose Karo
+            </h2>
+            <p className="mt-3 text-sm text-zinc-400 sm:text-base">
+              India (UPI / QR), Crypto (USDT TRC-20) aur Pakistan (EasyPaisa /
+              JazzCash / Telegram) — sab supported hain.
+            </p>
+
+            {/* Currency Switcher */}
+            <div
+              role="group"
+              aria-label="Select pricing currency"
+              className="mt-6 inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur-md"
             >
-              <Users className="h-6 w-6" />
-            </span>
-            <div>
-              <p className="text-xs font-semibold text-[#1D4ED8]">
-                Direct Mentor Support · Live GTA 6 Updates
-              </p>
-              <h4 className="font-display text-lg sm:text-xl font-extrabold text-slate-900">
-                Akele Nahi Seekhoge: Personal Clip Reviews & Payout Guidance.
-              </h4>
-              <p className="mt-1 text-xs sm:text-sm text-slate-700">
-                Har student ko private community me daily clip feedback,
-                latest GTA 6 viral angles, aur direct bank payout setup support
-                milta hai taaki aap fast results la sakein.
-              </p>
+              {CURRENCIES.map((code) => {
+                const active = currency === code;
+                return (
+                  <button
+                    key={code}
+                    type="button"
+                    onClick={() => onCurrencyChange(code)}
+                    aria-pressed={active}
+                    className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-all ${
+                      active
+                        ? 'bg-violet-600 text-white shadow-[0_0_16px_rgba(139,92,246,0.75)]'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    {CURRENCY_META[code].label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <motion.button
-            type="button"
-            whileHover={{ y: -2, scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 450, damping: 22 }}
-            onClick={() => onSelectPlan('lifetime')}
-            className="btn-sheen group inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-xl bg-[#1D4ED8] px-5 py-2.5 text-sm font-bold text-white whitespace-nowrap shrink-0 brand-cta-shadow transition-colors hover:bg-[#1E40AF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D4ED8]"
-          >
-            <span>Book Your Spot</span>
-            <ArrowRight
-              className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-              aria-hidden="true"
-            />
-          </motion.button>
+          {/* 2-Column Pricing Grid */}
+          <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Monthly Pass */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4 }}
+              className="glass-card flex flex-col justify-between rounded-3xl p-6 sm:p-8"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-display text-2xl font-extrabold text-white">
+                    {monthlyPlan.name}
+                  </h3>
+                  <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs font-semibold text-zinc-300">
+                    Monthly Access
+                  </span>
+                </div>
+                <p className="mt-1.5 text-sm text-zinc-400">
+                  {monthlyPlan.subtitle}
+                </p>
+
+                <div className="mt-6 flex items-baseline gap-2 border-b border-white/[0.08] pb-6">
+                  <span className="font-mono text-4xl font-extrabold text-white tabular-nums sm:text-5xl">
+                    {monthlyPrice.currentFormatted}
+                  </span>
+                  <span className="text-sm font-medium text-zinc-400">
+                    {monthlyPlan.billingCycleLabel}
+                  </span>
+                </div>
+
+                <ul className="mt-6 space-y-3.5">
+                  {monthlyPlan.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-start gap-3 text-sm text-zinc-200"
+                    >
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-emerald-400">
+                        <Check className="h-3 w-3" aria-hidden="true" />
+                      </span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Required 30-Day Investment Return Short Note */}
+                <div className="mt-6 flex items-start gap-2 rounded-2xl border border-violet-400/20 bg-violet-500/[0.08] p-4 text-xs leading-relaxed text-violet-100/90">
+                  <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-300" aria-hidden="true" />
+                  <span>{monthlyPlan.shortNote}</span>
+                </div>
+              </div>
+
+              <motion.button
+                type="button"
+                onClick={() => onSelectPlan('monthly')}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                className="mt-7 inline-flex min-h-[50px] w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-violet-400/50 hover:bg-white/[0.11] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+              >
+                <span>{monthlyPlan.ctaLabel}</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </motion.button>
+            </motion.div>
+
+            {/* Lifetime VIP Access (Hero Highlighted Cosmic Card) */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.08 }}
+              className="vip-cosmic-card relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 sm:p-8"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-semibold tracking-wide text-violet-300">
+                    Most Popular · Best Value
+                  </span>
+                  <Crown className="h-5 w-5 text-amber-300" aria-hidden="true" />
+                </div>
+
+                <h3 className="mt-2 font-display text-2xl font-extrabold text-white">
+                  {lifetimePlan.name}
+                </h3>
+                <p className="mt-1.5 text-sm text-violet-100/80">
+                  {lifetimePlan.subtitle}
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-baseline gap-2.5 border-b border-white/[0.12] pb-6">
+                  <span className="font-mono text-4xl font-extrabold text-white tabular-nums sm:text-5xl">
+                    {lifetimePrice.currentFormatted}
+                  </span>
+                  <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold text-violet-200">
+                    {lifetimePlan.billingCycleLabel}
+                  </span>
+                  {lifetimePrice.regularFormatted && (
+                    <span className="font-mono text-base font-medium text-zinc-400 line-through tabular-nums">
+                      {lifetimePrice.regularFormatted}
+                    </span>
+                  )}
+                  {lifetimePrice.savingsPercent && (
+                    <span className="rounded-full border border-emerald-400/35 bg-emerald-500/15 px-2.5 py-0.5 font-mono text-xs font-bold text-emerald-300">
+                      Save {lifetimePrice.savingsPercent}%
+                    </span>
+                  )}
+                </div>
+
+                <ul className="mt-6 space-y-3.5">
+                  {lifetimePlan.features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-start gap-3 text-sm text-white"
+                    >
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-emerald-400/40 bg-emerald-500/20 text-emerald-300">
+                        <Check className="h-3 w-3" aria-hidden="true" />
+                      </span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Required 30-Day Investment Return Short Note */}
+                <div className="mt-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 p-4 text-xs leading-relaxed text-emerald-100">
+                  {lifetimePlan.shortNote}
+                </div>
+              </div>
+
+              <motion.button
+                type="button"
+                onClick={() => onSelectPlan('lifetime')}
+                whileHover={{ y: -2, scale: 1.015 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                className="btn-sheen violet-cta-glow mt-7 inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
+              >
+                <span>{lifetimePlan.ctaLabel}</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </motion.button>
+            </motion.div>
+          </div>
+
+          {/* Direct Mentor Guidance Trust Strip */}
+          <div className="mx-auto mt-8 max-w-5xl rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <div className="flex items-start gap-3.5">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-violet-400/30 bg-violet-500/15 text-violet-300">
+                <Headphones className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h4 className="font-display text-sm font-bold text-white sm:text-base">
+                  1-on-1 Direct Mentor Onboarding & Personal Clip Audits
+                </h4>
+                <p className="mt-0.5 text-xs leading-relaxed text-zinc-400 sm:text-sm">
+                  Payment ke 5 minute ke andar aapko Telegram VIP community,
+                  live GTA 6 campaign sheets aur editing presets mil jate hain.
+                </p>
+              </div>
+            </div>
+            <span className="mt-3 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3.5 py-1.5 font-mono text-xs font-semibold text-emerald-300 sm:mt-0">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              Batch 1 Seats Active
+            </span>
+          </div>
         </div>
       </div>
     </section>
