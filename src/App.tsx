@@ -17,9 +17,9 @@ export default function App() {
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
   const [selectedProof, setSelectedProof] = useState<ProofItem | null>(null);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<PlanId>('lifetime');
+  const [selectedPlan, setSelectedPlan] = useState<PlanId>('vip_3m');
 
-  const openCheckout = (planId: PlanId = 'lifetime') => {
+  const openCheckout = (planId: PlanId = 'vip_3m') => {
     setSelectedPlan(planId);
     setCheckoutOpen(true);
   };

@@ -120,7 +120,7 @@ export function ProofLightbox({
               type="button"
               onClick={() => {
                 onClose();
-                onEnrollClick('lifetime');
+                onEnrollClick('vip_3m');
               }}
               whileHover={{ y: -1.5, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}

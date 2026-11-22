@@ -8,10 +8,10 @@ interface HeaderProps {
 }
 
 const NAV_LINKS = [
-  { href: '#proof-vault', label: 'Results (9)' },
-  { href: '#blueprint', label: 'How It Works' },
-  { href: '#curriculum', label: 'Curriculum' },
-  { href: '#pricing', label: 'Pricing' },
+  { href: '#proof-vault', label: 'Real Payouts' },
+  { href: '#modules', label: '8 Modules' },
+  { href: '#software', label: 'Free Software' },
+  { href: '#pricing', label: 'Pricing (499 / 999)' },
   { href: '#faq', label: 'FAQ' },
 ];
 
@@ -21,25 +21,25 @@ export function Header({ onEnrollClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#07050F]/75 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-        {/* Brand Mark */}
+        {/* Brand Mark: AI Income Pro */}
         <a
           href="#"
           className="group inline-flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-400"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-purple-700 text-white shadow-[0_0_24px_-4px_rgba(139,92,246,0.85)] ring-1 ring-white/25 transition-transform duration-200 group-hover:scale-105">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-600 text-white shadow-[0_0_24px_-4px_rgba(139,92,246,0.85)] ring-1 ring-white/25 transition-transform duration-200 group-hover:scale-105">
             <Sparkles className="h-4 w-4" aria-hidden="true" />
           </span>
           <div className="leading-tight">
-            <span className="block font-display text-[15px] font-bold tracking-tight text-white">
-              GTA 6 Clipping
+            <span className="block font-display text-[15px] font-extrabold tracking-tight text-white">
+              AI Income Pro
             </span>
-            <span className="block text-[11px] font-medium text-zinc-400">
-              Mentorship · Batch 1
+            <span className="block text-[11px] font-semibold text-violet-300">
+              Learn · Apply · Earn
             </span>
           </div>
         </a>
 
-        {/* Centered Floating Glass Nav Pill (Quantix signature) */}
+        {/* Centered Floating Glass Nav Pill */}
         <nav
           aria-label="Primary navigation"
           className="hidden items-center gap-1 rounded-full border border-white/[0.09] bg-white/[0.04] p-1.5 backdrop-blur-md md:flex"
@@ -59,13 +59,13 @@ export function Header({ onEnrollClick }: HeaderProps) {
         <div className="hidden items-center md:flex">
           <motion.button
             type="button"
-            onClick={() => onEnrollClick('lifetime')}
+            onClick={() => onEnrollClick('vip_3m')}
             whileHover={{ y: -1, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 440, damping: 24 }}
             className="btn-sheen violet-cta-glow inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[13px] font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-400"
           >
-            <span>Join Mentorship</span>
+            <span>Enroll Now (₹499)</span>
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </motion.button>
         </div>
@@ -114,11 +114,11 @@ export function Header({ onEnrollClick }: HeaderProps) {
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onEnrollClick('lifetime');
+                  onEnrollClick('vip_3m');
                 }}
                 className="btn-sheen violet-cta-glow mt-2 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white"
               >
-                <span>Join GTA 6 Mentorship</span>
+                <span>Enroll Now (₹499 / ₹999)</span>
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </button>
             </nav>

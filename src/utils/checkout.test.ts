@@ -13,7 +13,7 @@ test('rejects empty full name and short phone numbers for India/Pakistan', () =>
     fullName: '',
     countryCode: '+91',
     whatsappNumber: '98765',
-    planId: 'lifetime',
+    planId: 'vip_3m',
     paymentMethod: 'upi',
   });
 
@@ -27,7 +27,7 @@ test('accepts valid Indian, Pakistani, and USDT TRC-20 checkout submissions', ()
     fullName: 'Aarav Sharma',
     countryCode: '+91',
     whatsappNumber: '98765 43210',
-    planId: 'lifetime',
+    planId: 'vip_3m',
     paymentMethod: 'upi',
   });
   assert.equal(india.success, true);
@@ -37,7 +37,7 @@ test('accepts valid Indian, Pakistani, and USDT TRC-20 checkout submissions', ()
     fullName: 'Hamza Khan',
     countryCode: '+92',
     whatsappNumber: '3001234567',
-    planId: 'monthly',
+    planId: 'starter_2m',
     paymentMethod: 'whatsapp',
   });
   assert.equal(pakistan.success, true);
@@ -47,7 +47,7 @@ test('accepts valid Indian, Pakistani, and USDT TRC-20 checkout submissions', ()
     fullName: 'Vikram Singh',
     countryCode: '+1',
     whatsappNumber: '4155550199',
-    planId: 'lifetime',
+    planId: 'vip_3m',
     paymentMethod: 'usdt',
   });
   assert.equal(usdt.success, true);
@@ -55,40 +55,40 @@ test('accepts valid Indian, Pakistani, and USDT TRC-20 checkout submissions', ()
 });
 
 test('generates deterministic order references, UPI URIs, WhatsApp, and Telegram links including USDT', () => {
-  const ref = generateOrderReference('lifetime', '9876543210');
-  assert.equal(ref, 'GTA6-VIP-3210');
+  const ref = generateOrderReference('vip_3m', '9876543210');
+  assert.equal(ref, 'PRO-VIP3M-3210');
 
   const upi = buildUpiUri({
-    amountInr: 1999,
+    amountInr: 999,
     orderRef: ref,
-    planName: 'Lifetime VIP Access',
+    planName: 'Pro VIP All-Access (1 + 2 Months)',
   });
   assert.ok(upi.startsWith('upi://pay?'));
-  assert.ok(upi.includes('am=1999'));
-  assert.ok(upi.includes('GTA6-VIP-3210'));
+  assert.ok(upi.includes('am=999'));
+  assert.ok(upi.includes('PRO-VIP3M-3210'));
 
   const wa = buildWhatsAppUrl({
     fullName: 'Hamza Khan',
     countryCode: '+92',
     whatsappNumber: '3001234567',
-    planId: 'monthly',
+    planId: 'starter_2m',
     currency: 'PKR',
     paymentMethod: 'whatsapp',
-    orderRef: 'GTA6-MTH-4567',
+    orderRef: 'PRO-STR2M-4567',
   });
   assert.ok(wa.startsWith('https://wa.me/'));
-  assert.ok(wa.includes(encodeURIComponent('Rs. 3,500')));
+  assert.ok(wa.includes(encodeURIComponent('Rs. 1,750')));
 
   const tgUsdt = buildTelegramUrl({
     fullName: 'Aarav Sharma',
     countryCode: '+91',
     whatsappNumber: '9876543210',
-    planId: 'lifetime',
+    planId: 'vip_3m',
     currency: 'INR',
     paymentMethod: 'usdt',
     orderRef: ref,
   });
   assert.ok(tgUsdt.startsWith('https://t.me/'));
-  assert.ok(tgUsdt.includes(encodeURIComponent('GTA6-VIP-3210')));
+  assert.ok(tgUsdt.includes(encodeURIComponent('PRO-VIP3M-3210')));
   assert.ok(tgUsdt.includes(encodeURIComponent('USDT (Tron TRC-20 Crypto)')));
 });

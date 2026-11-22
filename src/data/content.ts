@@ -281,6 +281,100 @@ export const CLIPPING_STEPS = [
   },
 ];
 
+export const DUAL_BENEFIT_FEATURE = {
+  badge: 'Ek Teer Se Do Nishane 🎯',
+  heading: 'Hum Sirf Method Nahi Sikhate — Har Mahine Earning Ka Kaam Bhi Hum Denge!',
+  subheading:
+    'Method hum bata denge (Account kaise banayein & Reels kaise viral karein). Aur kamane ke liye high-paying kaam & campaigns bhi har mahine hum provide karenge!',
+  points: [
+    {
+      title: 'Pehla Nishana: Account Setup & Viral Reels Method',
+      desc: 'Zero se page start karne ka roadmap, 2-second hook formula aur copyright-safe viral editing seekho.',
+    },
+    {
+      title: 'Doosra Nishana: Kaam Hum Denge (Monthly Campaigns)',
+      desc: 'Bina kisi client hunt ke direct paid clipping campaigns aur verified tasks monthly aapko assign honge.',
+    },
+    {
+      title: 'Bonus #1: FREE Instagram Automation Software Ready',
+      desc: 'Instagram auto-engagement aur DM automation software course ke sath free milta hai.',
+    },
+    {
+      title: 'Bonus #2: In Future Jo Bhi Software Banega Wo Bhi FREE (Pro VIP)',
+      desc: '₹999 Plan me aaj ka software + future me aane wale sabhi tools & software bina kisi extra charge ke 100% free milenge.',
+    },
+  ],
+};
+
+export interface CourseModuleItem {
+  number: string;
+  title: string;
+  subtitle: string;
+  desc: string;
+  tag: string;
+  isHighlight?: boolean;
+}
+
+export const COURSE_MODULES_8: CourseModuleItem[] = [
+  {
+    number: '01',
+    title: '1. GTA 6 Se Earning',
+    subtitle: 'Game Se Kamai Ka Secret',
+    desc: 'GTA 6 hype se daily dollar kamane ka secret formula, private campaign platforms aur high RPM clipping methods.',
+    tag: 'Secret Game Pools',
+  },
+  {
+    number: '02',
+    title: '2. Instagram Se Kamai',
+    subtitle: 'Reels, Niche & Growth Strategy',
+    desc: 'Zero se viral account kaise banayein, 2-second hook method aur daily reels viral karne ki proven strategy.',
+    tag: 'Viral Growth',
+  },
+  {
+    number: '03',
+    title: '3. Affiliate Marketing',
+    subtitle: 'Products Promote Karke Kamai',
+    desc: 'High-ticket affiliate offers aur automated product links se bina face dikhaye commission kamane ka roadmap.',
+    tag: 'Passive Commissions',
+  },
+  {
+    number: '04',
+    title: '4. AI Tools & Automation',
+    subtitle: 'Smart Tools Se Auto Income',
+    desc: 'AI video generation, automated captions, audio mastering aur 1-click workflows se autopilot production.',
+    tag: 'Autopilot Systems',
+  },
+  {
+    number: '05',
+    title: '5. Content Creation',
+    subtitle: 'Viral Content Banane Ki Strategy',
+    desc: 'Scroll-stopping hooks, psychological retention techniques aur mobile/PC editing masterclass.',
+    tag: 'Hook Mastery',
+  },
+  {
+    number: '06',
+    title: '6. Monetization Strategies',
+    subtitle: 'Multiple Income Sources',
+    desc: 'Brand deals, paid clipping campaigns, ad revenue aur crypto/bank settlements ka multi-stream engine.',
+    tag: 'Multi-Income',
+  },
+  {
+    number: '07',
+    title: '7. Freelancing Skills',
+    subtitle: 'Global Clients Se Earning',
+    desc: 'International creators aur brands ko editing/clipping services offer karke $500–$2,000 monthly retainers crack karo.',
+    tag: 'Global Clients',
+  },
+  {
+    number: '08',
+    title: '8. FREE Instagram Automation Software',
+    subtitle: 'Included With Course!',
+    desc: 'Automate DM triggers, engagement aur audience outreach. (₹999 Pro VIP me future ke sabhi software bhi 100% FREE!)',
+    tag: 'Free Software Included',
+    isHighlight: true,
+  },
+];
+
 export interface MentorshipModule {
   id: string;
   number: string;

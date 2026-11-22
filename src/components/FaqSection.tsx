@@ -103,13 +103,13 @@ export function FaqSection({ onEnrollClick }: FaqSectionProps) {
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <motion.button
               type="button"
-              onClick={() => onEnrollClick('lifetime')}
+              onClick={() => onEnrollClick('vip_3m')}
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 420, damping: 24 }}
               className="btn-sheen violet-cta-glow inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[15px] font-semibold text-white sm:w-auto"
             >
-              <span>Claim Lifetime VIP Access</span>
+              <span>Enroll Now (₹499 / ₹999) &amp; Get Software</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </motion.button>
           </div>

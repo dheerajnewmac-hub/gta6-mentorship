@@ -11,10 +11,10 @@ export function Footer() {
             </span>
             <div>
               <p className="font-display text-sm font-bold text-white">
-                GTA 6 Clipping Mentorship
+                AI Income Pro Mentorship
               </p>
               <p className="text-xs text-zinc-500">
-                India · Pakistan · Global Creators (UPI / USDT TRC-20 / Telegram)
+                Learn · Apply · Earn (UPI / USDT TRC-20 / Telegram @Eliteclippers1)
               </p>
             </div>
           </div>

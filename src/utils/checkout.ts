@@ -24,7 +24,7 @@ export const checkoutSchema = z
       .trim()
       .transform((val) => val.replace(/[\s-]/g, ''))
       .refine((val) => /^\d+$/.test(val), 'Enter digits only (no symbols or spaces).'),
-    planId: z.enum(['monthly', 'lifetime']),
+    planId: z.enum(['starter_2m', 'vip_3m']),
     paymentMethod: z.enum(['upi', 'usdt', 'whatsapp']),
   })
   .superRefine((data, ctx) => {
@@ -77,9 +77,9 @@ export function validateCheckoutForm(input: {
 }
 
 export function generateOrderReference(planId: PlanId, phoneDigits: string): string {
-  const prefix = planId === 'lifetime' ? 'VIP' : 'MTH';
+  const prefix = planId === 'vip_3m' ? 'VIP3M' : 'STR2M';
   const tail = phoneDigits.slice(-4).padStart(4, '0');
-  return `GTA6-${prefix}-${tail}`;
+  return `PRO-${prefix}-${tail}`;
 }
 
 export function getPaymentMethodLabel(paymentMethod: PaymentMethod): string {

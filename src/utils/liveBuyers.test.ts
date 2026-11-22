@@ -9,22 +9,22 @@ import {
   getNextPopupDelayMs,
 } from './liveBuyers';
 
-test('first live buyer features Ashok purchasing Lifetime VIP Access at 1999 INR', () => {
+test('first live buyer features Ashok purchasing Pro VIP Access at 999 INR', () => {
   const first = LIVE_BUYERS[0];
   assert.equal(first.name, 'Ashok');
-  assert.equal(first.planId, 'lifetime');
+  assert.equal(first.planId, 'vip_3m');
 
   const inr = formatLiveBuyerNotification(first, 'INR');
-  assert.equal(inr.planName, 'Lifetime VIP Access');
-  assert.equal(inr.priceFormatted, '₹1,999');
+  assert.equal(inr.planName, 'Pro VIP All-Access (1 + 2 Months)');
+  assert.equal(inr.priceFormatted, '₹999');
   assert.equal(inr.initials, 'AS');
-  assert.equal(inr.isLifetime, true);
+  assert.equal(inr.isVip, true);
 
   const pkr = formatLiveBuyerNotification(first, 'PKR');
-  assert.equal(pkr.priceFormatted, 'Rs. 6,500');
+  assert.equal(pkr.priceFormatted, 'Rs. 3,500');
 
   const usd = formatLiveBuyerNotification(first, 'USD');
-  assert.equal(usd.priceFormatted, '$24');
+  assert.equal(usd.priceFormatted, '$12');
 });
 
 test('all live buyer entries have valid metadata and initials', () => {

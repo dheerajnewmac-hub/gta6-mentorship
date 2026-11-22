@@ -70,8 +70,8 @@ export function CheckoutModal({
 
   if (!isOpen) return null;
 
-  const monthlyPrice = getPlanPriceInfo('monthly', currency);
-  const lifetimePrice = getPlanPriceInfo('lifetime', currency);
+  const starterPrice = getPlanPriceInfo('starter_2m', currency);
+  const vipPrice = getPlanPriceInfo('vip_3m', currency);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -118,7 +118,7 @@ export function CheckoutModal({
             >
               {validatedData
                 ? 'Complete Your Payment'
-                : 'Join GTA 6 Mentorship'}
+                : 'Join Mentorship & Get Software'}
             </h3>
           </div>
           <button
@@ -143,15 +143,15 @@ export function CheckoutModal({
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
               <fieldset>
                 <legend className="text-xs font-semibold text-zinc-300">
-                  Selected Plan
+                  Selected Program
                 </legend>
                 <div className="mt-2 grid grid-cols-2 gap-3">
-                  {(['monthly', 'lifetime'] as PlanId[]).map((id) => {
+                  {(['starter_2m', 'vip_3m'] as PlanId[]).map((id) => {
                     const active = planId === id;
                     const priceText =
-                      id === 'monthly'
-                        ? `${monthlyPrice.currentFormatted}/mo`
-                        : `${lifetimePrice.currentFormatted} One-Time`;
+                      id === 'starter_2m'
+                        ? `${starterPrice.currentFormatted} (1+1 Mo)`
+                        : `${vipPrice.currentFormatted} (1+2 Mo VIP)`;
                     return (
                       <button
                         key={id}
@@ -173,6 +173,9 @@ export function CheckoutModal({
                           }`}
                         >
                           {priceText}
+                        </p>
+                        <p className="mt-0.5 text-[10px] text-zinc-400">
+                          {id === 'vip_3m' ? 'All Softwares FREE' : 'Instagram Bot Included'}
                         </p>
                       </button>
                     );

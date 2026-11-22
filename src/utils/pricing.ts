@@ -1,5 +1,5 @@
 export type CurrencyCode = 'INR' | 'PKR' | 'USD';
-export type PlanId = 'monthly' | 'lifetime';
+export type PlanId = 'starter_2m' | 'vip_3m';
 
 export interface PlanPricing {
   id: PlanId;
@@ -59,52 +59,55 @@ export const CURRENCY_META: Record<
 };
 
 export const PRICING_PLANS: Record<PlanId, PlanPricing> = {
-  monthly: {
-    id: 'monthly',
-    name: 'Monthly Pass',
-    subtitle: 'Complete GTA 6 Clipping System + Community',
-    billingCycleLabel: '/month',
+  starter_2m: {
+    id: 'starter_2m',
+    name: 'Starter Pass (1 + 1 Month)',
+    subtitle: '1 Month Paid + 1 Month FREE (Total 2 Months Full Access)',
+    billingCycleLabel: '2 Months Total',
     popular: false,
     prices: {
-      INR: { current: 999 },
-      PKR: { current: 3500 },
-      USD: { current: 12 },
+      INR: { current: 499, regular: 1999 },
+      PKR: { current: 1750, regular: 7000 },
+      USD: { current: 6, regular: 25 },
     },
     features: [
-      'Complete GTA 6 Clipping Video Modules (Phone + PC)',
-      'Secret High-Paying GTA 6 Clipping Platforms & Campaign List',
-      'Weekly Live Q&A Calls & Clip Reviews',
-      'Copyright Protection & 0-Strike Editing Shield',
-      'Private VIP Telegram & Community Access',
+      '1 Month Paid + 1 Month FREE Access (Total 2 Months)',
+      'FREE Instagram Automation Software Included',
+      'Har Mahine Earning Ke Liye Kaam Hum Khud Denge',
+      'Account Kaise Banayein & Reel Viral Karne Ka Secret Method',
+      'GTA 6 Game & Clipping Se Earning System',
+      'Direct Payout Setup (SBI Bank / PhonePe UPI / Crypto)',
+      'Community Group & Instant Doubt Support',
     ],
     shortNote:
-      'Pro Tip: Jo log Lifetime Access lete hain, unhe 30 days me jitna invest kiya hai utna return GTA 6 clipping se hi mil jata hai.',
-    ctaLabel: 'Start Monthly Pass',
+      'Special 1+1 Offer: ₹499 me 2 months access + Free Instagram Automation Software + Har mahine kaam guaranteed!',
+    ctaLabel: 'Claim 1+1 Month Pass (₹499)',
   },
-  lifetime: {
-    id: 'lifetime',
-    name: 'Lifetime VIP Access',
-    subtitle: 'Full GTA 6 Blueprint + 1-on-1 Personal Support',
-    billingCycleLabel: 'One-Time',
+  vip_3m: {
+    id: 'vip_3m',
+    name: 'Pro VIP All-Access (1 + 2 Months)',
+    subtitle: '1 Month Paid + 2 Months FREE (Total 3 Months VIP Access)',
+    billingCycleLabel: '3 Months Total',
     popular: true,
     prices: {
-      INR: { current: 1999, regular: 9999 },
-      PKR: { current: 6500, regular: 32500 },
-      USD: { current: 24, regular: 119 },
+      INR: { current: 999, regular: 4999 },
+      PKR: { current: 3500, regular: 17500 },
+      USD: { current: 12, regular: 60 },
     },
     features: [
-      'Direct High-Paying Paid Campaigns Provided (No Searching Needed)',
-      'Early Access Campaigns — Secret Dollar-Earning Deals Before Public Release',
-      'Complete A-to-Z Done-For-You Setup (Account, Approval & Payouts)',
-      '100% Guaranteed Campaign Approval — Start Earning From Day 1',
-      '1-on-1 Direct Mentor VIP Support & Daily Clip Audits',
-      '500+ Viral GTA 6 SFX, BGM & CapCut/Premiere Presets Pack',
-      'Everything inside Monthly Pass — Lifetime Access (No Recurring Fee)',
-      'All Future GTA 6 Launch Drops & Secret Algorithm Updates Free',
+      '1 Month Paid + 2 Months FREE Access (Total 3 Months VIP Access)',
+      'FREE Instagram Automation Software Ready-to-Use',
+      'ALL FUTURE SOFTWARES 100% FREE (Future Me Jo Bhi Naye Software Banenge Free Milenge)',
+      'Direct High-Paying Monthly Work & Secret Campaigns Provided',
+      'Complete A-to-Z Done-For-You Account & Viral Reels Blueprint',
+      'Secret Earning Methods (GTA 6 Clipping + Affiliate + AI Automation)',
+      '1-on-1 Direct Mentor VIP Support & Daily Reel/Clip Audits',
+      'Early Access Secret Dollar Deals Before Public Release',
+      'Private VIP Mastermind Telegram Group Access',
     ],
     shortNote:
-      '30-Day Return Note: Jo log Lifetime Access lete hain, unhe 30 days ke andar jitna invest kiya hai utna return GTA 6 clipping se hi mil jata hai.',
-    ctaLabel: 'Claim Lifetime VIP Access',
+      'Pro VIP Deal: ₹999 me 3 months full access + Saare future softwares 100% free + High-paying direct kaam!',
+    ctaLabel: 'Claim Pro VIP All-Access (₹999)',
   },
 };
 
