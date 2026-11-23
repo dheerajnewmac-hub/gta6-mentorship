@@ -9,19 +9,19 @@ import {
   getNextPopupDelayMs,
 } from './liveBuyers';
 
-test('first live buyer features Ashok purchasing Pro VIP Access at 999 INR', () => {
+test('first live buyer features Ashok purchasing Pro All-Software (1+2 Mo) at 999 INR', () => {
   const first = LIVE_BUYERS[0];
   assert.equal(first.name, 'Ashok');
-  assert.equal(first.planId, 'vip_3m');
+  assert.equal(first.planId, 'pro');
 
   const inr = formatLiveBuyerNotification(first, 'INR');
-  assert.equal(inr.planName, 'Pro VIP All-Access (1 + 2 Months)');
+  assert.equal(inr.planName, 'Pro All-Software (1+2 Mo)');
   assert.equal(inr.priceFormatted, '₹999');
   assert.equal(inr.initials, 'AS');
-  assert.equal(inr.isVip, true);
+  assert.equal(inr.isPro, true);
 
   const pkr = formatLiveBuyerNotification(first, 'PKR');
-  assert.equal(pkr.priceFormatted, 'Rs. 3,500');
+  assert.equal(pkr.priceFormatted, 'Rs. 3,300');
 
   const usd = formatLiveBuyerNotification(first, 'USD');
   assert.equal(usd.priceFormatted, '$12');

@@ -8,42 +8,50 @@ import {
 import { filterProofItems, countProofByCategory } from './proofFilter';
 import { PROOF_ITEMS } from '../data/content';
 
-test('formats INR, PKR, and USD amounts accurately', () => {
+test('formats INR, PKR, and USD amounts accurately for ₹499 and ₹999 monthly plans', () => {
   assert.equal(formatCurrencyAmount(499, 'INR'), '₹499');
   assert.equal(formatCurrencyAmount(999, 'INR'), '₹999');
-  assert.equal(formatCurrencyAmount(1750, 'PKR'), 'Rs. 1,750');
-  assert.equal(formatCurrencyAmount(3500, 'PKR'), 'Rs. 3,500');
+  assert.equal(formatCurrencyAmount(1650, 'PKR'), 'Rs. 1,650');
+  assert.equal(formatCurrencyAmount(3300, 'PKR'), 'Rs. 3,300');
   assert.equal(formatCurrencyAmount(6, 'USD'), '$6');
   assert.equal(formatCurrencyAmount(12, 'USD'), '$12');
 });
 
-test('computes Pro VIP 3-Month and Starter 2-Month savings percentage and deliverables accurately', () => {
-  const inrVip = getPlanPriceInfo('vip_3m', 'INR');
-  assert.equal(inrVip.currentFormatted, '₹999');
-  assert.equal(inrVip.regularFormatted, '₹4,999');
-  assert.equal(inrVip.savingsPercent, 80);
+test('computes Starter (1+1 Mo) and Pro All-Software (1+2 Mo) pricing and deliverables accurately', () => {
+  const starterInr = getPlanPriceInfo('starter', 'INR');
+  assert.equal(starterInr.currentFormatted, '₹499');
+  assert.equal(starterInr.regularFormatted, '₹998');
+  assert.equal(starterInr.savingsPercent, 50);
 
-  const inrStarter = getPlanPriceInfo('starter_2m', 'INR');
-  assert.equal(inrStarter.currentFormatted, '₹499');
-  assert.equal(inrStarter.regularFormatted, '₹1,999');
-  assert.equal(inrStarter.savingsPercent, 75);
+  const proInr = getPlanPriceInfo('pro', 'INR');
+  assert.equal(proInr.currentFormatted, '₹999');
+  assert.equal(proInr.regularFormatted, '₹2,997');
+  assert.equal(proInr.savingsPercent, 67);
 
-  const pkrVip = getPlanPriceInfo('vip_3m', 'PKR');
-  assert.equal(pkrVip.currentFormatted, 'Rs. 3,500');
-  assert.equal(pkrVip.regularFormatted, 'Rs. 17,500');
-  assert.equal(pkrVip.savingsPercent, 80);
+  const proPkr = getPlanPriceInfo('pro', 'PKR');
+  assert.equal(proPkr.currentFormatted, 'Rs. 3,300');
 
-  const usdVip = getPlanPriceInfo('vip_3m', 'USD');
-  assert.equal(usdVip.currentFormatted, '$12');
-  assert.equal(usdVip.regularFormatted, '$60');
-  assert.equal(usdVip.savingsPercent, 80);
+  const proUsd = getPlanPriceInfo('pro', 'USD');
+  assert.equal(proUsd.currentFormatted, '$12');
 
-  assert.ok(PRICING_PLANS.vip_3m.features.length >= 7);
+  // Verify no Lifetime access plan exists and required features are transferred properly
+  assert.equal(Object.keys(PRICING_PLANS).includes('lifetime'), false);
+  assert.equal(PRICING_PLANS.starter.features.length, 8);
+  assert.equal(PRICING_PLANS.pro.features.length, 10);
   assert.ok(
-    PRICING_PLANS.vip_3m.features.some((f) => f.includes('FUTURE SOFTWARES'))
+    PRICING_PLANS.pro.features.some((f) =>
+      f.includes('Future Me Aane Wale Sabhi Softwares FREE')
+    )
   );
   assert.ok(
-    PRICING_PLANS.starter_2m.features.some((f) => f.includes('Instagram Automation Software'))
+    PRICING_PLANS.pro.features.some((f) =>
+      f.includes('100% Guaranteed Campaign Approval')
+    )
+  );
+  assert.ok(
+    PRICING_PLANS.starter.features.some((f) =>
+      f.includes('Complete GTA 6 Clipping Video Modules')
+    )
   );
 });
 

@@ -11,26 +11,26 @@ export function Footer() {
             </span>
             <div>
               <p className="font-display text-sm font-bold text-white">
-                AI Income Pro Mentorship
+                GTA 6 Income Pro
               </p>
               <p className="text-xs text-zinc-500">
-                Learn · Apply · Earn (UPI / USDT TRC-20 / Telegram @Eliteclippers1)
+                India · Pakistan · Global Creators (UPI / USDT TRC-20 / Telegram)
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-zinc-400">
+            <a href="#pricing" className="hover:text-white">
+              Plans
+            </a>
             <a href="#proof-vault" className="hover:text-white">
               Results (9)
             </a>
-            <a href="#blueprint" className="hover:text-white">
-              How It Works
+            <a href="#reviews" className="hover:text-white">
+              Reviews (12)
             </a>
-            <a href="#curriculum" className="hover:text-white">
-              Curriculum
-            </a>
-            <a href="#pricing" className="hover:text-white">
-              Pricing
+            <a href="#modules" className="hover:text-white">
+              Modules
             </a>
             <a href="#faq" className="hover:text-white">
               FAQ

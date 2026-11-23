@@ -1,11 +1,14 @@
 export type CurrencyCode = 'INR' | 'PKR' | 'USD';
-export type PlanId = 'starter_2m' | 'vip_3m';
+export type PlanId = 'starter' | 'pro';
 
 export interface PlanPricing {
   id: PlanId;
   name: string;
+  shortName: string;
   subtitle: string;
   billingCycleLabel: string;
+  bonusDurationBadge: string;
+  totalAccessSummary: string;
   popular: boolean;
   prices: Record<CurrencyCode, { current: number; regular?: number }>;
   features: string[];
@@ -59,55 +62,63 @@ export const CURRENCY_META: Record<
 };
 
 export const PRICING_PLANS: Record<PlanId, PlanPricing> = {
-  starter_2m: {
-    id: 'starter_2m',
-    name: 'Starter Pass (1 + 1 Month)',
-    subtitle: '1 Month Paid + 1 Month FREE (Total 2 Months Full Access)',
-    billingCycleLabel: '2 Months Total',
+  starter: {
+    id: 'starter',
+    name: 'Starter Monthly Program',
+    shortName: 'Starter (1+1 Mo)',
+    subtitle: 'Complete GTA 6 System + Free Insta Software + Monthly Work Group',
+    billingCycleLabel: '1+1 Months (2 Months Total)',
+    bonusDurationBadge: '1+1 Month FREE',
+    totalAccessSummary: '1 Month Paid + 1 Month Extra FREE',
     popular: false,
     prices: {
-      INR: { current: 499, regular: 1999 },
-      PKR: { current: 1750, regular: 7000 },
-      USD: { current: 6, regular: 25 },
+      INR: { current: 499, regular: 998 },
+      PKR: { current: 1650, regular: 3300 },
+      USD: { current: 6, regular: 12 },
     },
     features: [
-      '1 Month Paid + 1 Month FREE Access (Total 2 Months)',
-      'FREE Instagram Automation Software Included',
-      'Har Mahine Earning Ke Liye Kaam Hum Khud Denge',
-      'Account Kaise Banayein & Reel Viral Karne Ka Secret Method',
-      'GTA 6 Game & Clipping Se Earning System',
-      'Direct Payout Setup (SBI Bank / PhonePe UPI / Crypto)',
-      'Community Group & Instant Doubt Support',
+      '1+1 Months Full Access (1 Month Paid + 1 Month Extra FREE = 2 Months)',
+      'Complete GTA 6 Clipping Video Modules (Phone + PC)',
+      'Secret High-Paying GTA 6 Clipping Platforms & Campaign List',
+      'FREE Ready-Made Instagram Automation Software Included',
+      'Account Setup Se Reel Viral Method + Har Mahine Direct Paid Work Group',
+      'Weekly Live Q&A Calls & Direct Clip Reviews',
+      'Copyright Protection & 0-Strike Editing Shield',
+      'Private VIP Telegram & Active Clippers Community Access',
     ],
     shortNote:
-      'Special 1+1 Offer: ₹499 me 2 months access + Free Instagram Automation Software + Har mahine kaam guaranteed!',
-    ctaLabel: 'Claim 1+1 Month Pass (₹499)',
+      'Ek Teer Se Do Nishana: Account kaise banana hai aur reel kaise viral karni hai wo method hum sikhayenge, aur har mahine direct earning ka kaam bhi hamare private group me hum hi denge — 2 full months (1+1) access!',
+    ctaLabel: 'Join Starter — 1+1 Months',
   },
-  vip_3m: {
-    id: 'vip_3m',
-    name: 'Pro VIP All-Access (1 + 2 Months)',
-    subtitle: '1 Month Paid + 2 Months FREE (Total 3 Months VIP Access)',
-    billingCycleLabel: '3 Months Total',
+  pro: {
+    id: 'pro',
+    name: 'Pro All-Software Program',
+    shortName: 'Pro All-Software (1+2 Mo)',
+    subtitle: 'All Current & Future Earning Softwares FREE + Direct Campaigns + Full Roadmap',
+    billingCycleLabel: '1+2 Months (3 Months Total)',
+    bonusDurationBadge: '1+2 Months FREE',
+    totalAccessSummary: '1 Month Paid + 2 Months Extra FREE',
     popular: true,
     prices: {
-      INR: { current: 999, regular: 4999 },
-      PKR: { current: 3500, regular: 17500 },
-      USD: { current: 12, regular: 60 },
+      INR: { current: 999, regular: 2997 },
+      PKR: { current: 3300, regular: 9900 },
+      USD: { current: 12, regular: 36 },
     },
     features: [
-      '1 Month Paid + 2 Months FREE Access (Total 3 Months VIP Access)',
-      'FREE Instagram Automation Software Ready-to-Use',
-      'ALL FUTURE SOFTWARES 100% FREE (Future Me Jo Bhi Naye Software Banenge Free Milenge)',
-      'Direct High-Paying Monthly Work & Secret Campaigns Provided',
-      'Complete A-to-Z Done-For-You Account & Viral Reels Blueprint',
-      'Secret Earning Methods (GTA 6 Clipping + Affiliate + AI Automation)',
-      '1-on-1 Direct Mentor VIP Support & Daily Reel/Clip Audits',
-      'Early Access Secret Dollar Deals Before Public Release',
-      'Private VIP Mastermind Telegram Group Access',
+      '1+2 Months Full Access (1 Month Paid + 2 Months Extra FREE = 3 Months)',
+      'All Earning Softwares FREE — Ready-Made Insta Automation + Future Me Aane Wale Sabhi Softwares FREE + New Earning Methods',
+      'Direct High-Paying Paid Campaigns Provided — Hum Khud Campaigns Denge (No Searching Needed)',
+      'Complete Account-to-Views Roadmap — Kaise Account Banana Hai, Kaise Views Aayenge & Kaise Kamana Hai (Sari Details)',
+      'Early Access Campaigns — Secret Dollar-Earning Deals Before Public Release',
+      'Complete A-to-Z Done-For-You Setup (Account, Approval & Payouts)',
+      '100% Guaranteed Campaign Approval — Start Earning From Day 1',
+      '1-on-1 Direct Mentor VIP Support & Daily Clip / Reel Audits',
+      '500+ Viral GTA 6 & Reels SFX, BGM & CapCut/Premiere Presets Pack',
+      'Everything inside Starter Plan + All Future GTA 6 Launch Drops & Secret Algorithm Updates Free',
     ],
     shortNote:
-      'Pro VIP Deal: ₹999 me 3 months full access + Saare future softwares 100% free + High-paying direct kaam!',
-    ctaLabel: 'Claim Pro VIP All-Access (₹999)',
+      'All-Software & Campaign Promise: Is ₹999 Pro Plan me aapko sabhi earning softwares aur future me jitne bhi naye softwares aayenge wo bilkul FREE milenge + naye earning methods milte rahenge. Saath hi hum aapko direct paid campaigns denge aur account banana, views laana & earning ka poora roadmap sikhayenge — 3 full months (1+2) ke liye!',
+    ctaLabel: 'Join Pro All-Software — 1+2 Months',
   },
 };
 

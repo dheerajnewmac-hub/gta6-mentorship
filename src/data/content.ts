@@ -260,118 +260,91 @@ export const PROOF_ITEMS: ProofItem[] = [
   },
 ];
 
-export const CLIPPING_STEPS = [
-  {
-    number: '01',
-    title: 'GTA 6 Trailers, Leaks & High-RPM Campaigns Pick Karo',
-    description:
-      'Abhi GTA 6 duniya ka sabse bada gaming wave hai — har trailer detail, leak aur streamer reaction par millions of views aate hain. Exact viral topics aur private paid clipping platforms sirf mentorship ke andar reveal kiye jate hain.',
-  },
-  {
-    number: '02',
-    title: '2-Second Viral Hook Edit Lagao (Phone Ya PC)',
-    description:
-      'CapCut Mobile ya Premiere Pro me hamare GTA 6 caption presets, fast zoom cuts aur copyright-safe SFX lagao — taaki viewer end tak watch kare aur 95%+ clips approve hon.',
-  },
-  {
-    number: '03',
-    title: 'Upload Karo & Direct Bank / USDT Me Dollars Earn Karo',
-    description:
-      'YouTube Shorts, Instagram Reels & TikTok par post karo aur verified clipping platform payouts seedha apne Indian/Pakistani bank ya USDT wallet me withdraw karo.',
-  },
-];
-
-export const DUAL_BENEFIT_FEATURE = {
-  badge: 'Ek Teer Se Do Nishane 🎯',
-  heading: 'Hum Sirf Method Nahi Sikhate — Har Mahine Earning Ka Kaam Bhi Hum Denge!',
-  subheading:
-    'Method hum bata denge (Account kaise banayein & Reels kaise viral karein). Aur kamane ke liye high-paying kaam & campaigns bhi har mahine hum provide karenge!',
-  points: [
-    {
-      title: 'Pehla Nishana: Account Setup & Viral Reels Method',
-      desc: 'Zero se page start karne ka roadmap, 2-second hook formula aur copyright-safe viral editing seekho.',
-    },
-    {
-      title: 'Doosra Nishana: Kaam Hum Denge (Monthly Campaigns)',
-      desc: 'Bina kisi client hunt ke direct paid clipping campaigns aur verified tasks monthly aapko assign honge.',
-    },
-    {
-      title: 'Bonus #1: FREE Instagram Automation Software Ready',
-      desc: 'Instagram auto-engagement aur DM automation software course ke sath free milta hai.',
-    },
-    {
-      title: 'Bonus #2: In Future Jo Bhi Software Banega Wo Bhi FREE (Pro VIP)',
-      desc: '₹999 Plan me aaj ka software + future me aane wale sabhi tools & software bina kisi extra charge ke 100% free milenge.',
-    },
-  ],
-};
-
-export interface CourseModuleItem {
+export interface CourseModuleTile {
+  id: string;
   number: string;
   title: string;
   subtitle: string;
-  desc: string;
-  tag: string;
-  isHighlight?: boolean;
+  category: 'earning' | 'instagram' | 'software' | 'group';
 }
 
-export const COURSE_MODULES_8: CourseModuleItem[] = [
+export const COURSE_MODULES: CourseModuleTile[] = [
+  {
+    id: 'cm-gta6',
+    number: '01',
+    title: 'GTA 6 Se Earning',
+    subtitle: 'Trailers, leaks & viral game clips se daily dollars',
+    category: 'earning',
+  },
+  {
+    id: 'cm-insta',
+    number: '02',
+    title: 'Instagram Se Kamai',
+    subtitle: 'Zero se account setup, niche & Reel viral formula',
+    category: 'instagram',
+  },
+  {
+    id: 'cm-software',
+    number: '03',
+    title: 'Free Insta Software',
+    subtitle: 'Ready-made Instagram Automation Software setup',
+    category: 'software',
+  },
+  {
+    id: 'cm-work-group',
+    number: '04',
+    title: 'Monthly Paid Work',
+    subtitle: 'Har mahine direct paid clipping kaam hum denge',
+    category: 'group',
+  },
+  {
+    id: 'cm-hooks',
+    number: '05',
+    title: 'Viral Content Creation',
+    subtitle: '2-second hook editing workflow (Phone + PC)',
+    category: 'earning',
+  },
+  {
+    id: 'cm-platforms',
+    number: '06',
+    title: 'Secret Payout Pools',
+    subtitle: 'High-RPM private clipping platforms revealed',
+    category: 'earning',
+  },
+  {
+    id: 'cm-kick',
+    number: '07',
+    title: 'Kick Clipping Payouts',
+    subtitle: '$953+ USDT proven Kick clipping method',
+    category: 'earning',
+  },
+  {
+    id: 'cm-future-soft',
+    number: '08',
+    title: 'Future Software Vault',
+    subtitle: '₹999 plan me har naya software + method FREE',
+    category: 'software',
+  },
+];
+
+export const CLIPPING_STEPS = [
   {
     number: '01',
-    title: '1. GTA 6 Se Earning',
-    subtitle: 'Game Se Kamai Ka Secret',
-    desc: 'GTA 6 hype se daily dollar kamane ka secret formula, private campaign platforms aur high RPM clipping methods.',
-    tag: 'Secret Game Pools',
+    title: 'Account Setup + Free Insta Software Launch Karo',
+    description:
+      'Step-by-step Instagram & GTA 6 clip account kaise banana hai, kaunsa niche pick karna hai aur hamara ready-made Instagram Automation Software kaise use karna hai — sab Day 1 par ready.',
   },
   {
     number: '02',
-    title: '2. Instagram Se Kamai',
-    subtitle: 'Reels, Niche & Growth Strategy',
-    desc: 'Zero se viral account kaise banayein, 2-second hook method aur daily reels viral karne ki proven strategy.',
-    tag: 'Viral Growth',
+    title: 'Viral Reel & GTA 6 Hook Method Apply Karo',
+    description:
+      'Phone (CapCut) ya PC par hamara proven 2-second viral hook aur copyright-safe preset lagao taaki nayi Reels aur GTA 6 clips fast viral hon aur 95%+ approval mile.',
   },
   {
     number: '03',
-    title: '3. Affiliate Marketing',
-    subtitle: 'Products Promote Karke Kamai',
-    desc: 'High-ticket affiliate offers aur automated product links se bina face dikhaye commission kamane ka roadmap.',
-    tag: 'Passive Commissions',
-  },
-  {
-    number: '04',
-    title: '4. AI Tools & Automation',
-    subtitle: 'Smart Tools Se Auto Income',
-    desc: 'AI video generation, automated captions, audio mastering aur 1-click workflows se autopilot production.',
-    tag: 'Autopilot Systems',
-  },
-  {
-    number: '05',
-    title: '5. Content Creation',
-    subtitle: 'Viral Content Banane Ki Strategy',
-    desc: 'Scroll-stopping hooks, psychological retention techniques aur mobile/PC editing masterclass.',
-    tag: 'Hook Mastery',
-  },
-  {
-    number: '06',
-    title: '6. Monetization Strategies',
-    subtitle: 'Multiple Income Sources',
-    desc: 'Brand deals, paid clipping campaigns, ad revenue aur crypto/bank settlements ka multi-stream engine.',
-    tag: 'Multi-Income',
-  },
-  {
-    number: '07',
-    title: '7. Freelancing Skills',
-    subtitle: 'Global Clients Se Earning',
-    desc: 'International creators aur brands ko editing/clipping services offer karke $500–$2,000 monthly retainers crack karo.',
-    tag: 'Global Clients',
-  },
-  {
-    number: '08',
-    title: '8. FREE Instagram Automation Software',
-    subtitle: 'Included With Course!',
-    desc: 'Automate DM triggers, engagement aur audience outreach. (₹999 Pro VIP me future ke sabhi software bhi 100% FREE!)',
-    tag: 'Free Software Included',
-    isHighlight: true,
+    title: 'Har Mahine Direct Paid Kaam Hum Denge — Earn Karo',
+    description:
+      'Private Paid Work Group me har mahine active paid clipping kaam hum direct provide karenge. Ek teer se do nishana: apna page bhi grow hoga aur har mahine bank / USDT me direct payouts bhi aayenge.',
   },
 ];
 
@@ -386,71 +359,71 @@ export interface MentorshipModule {
 
 export const MENTORSHIP_PILLARS: MentorshipModule[] = [
   {
-    id: 'mod-campaigns',
+    id: 'mod-software',
     number: '01',
-    title: 'Secret High-Paying Platforms & GTA 6 Campaigns',
-    outcome: 'Day 1 se verified private clipping platforms & campaigns join karo',
+    title: 'Free Instagram Automation Software & Future Tools',
+    outcome: 'Ready-made Insta software install karo aur auto-growth shuru karo',
     detail:
-      'Kaunse private clipping platforms aur GTA 6 campaign pools ($900/1M+) sabse fast approve aur pay karte hain — sab kuch mentorship ke andar live reveal hota hai.',
+      'Hamara khud ka ready-made Instagram Automation Software aapko mentorship ke saath FREE milta hai. ₹999 Pro Plan me aapko sabhi softwares ka full access aur future me banne wala har naya software bhi bilkul FREE + earning method milega.',
     deliverables: [
-      'All secret high-paying clipping platforms revealed step-by-step',
-      'Daily trending GTA 6 trailer/leak angle alerts',
-      '95%+ submission approval checklist & RPM breakdown',
+      'Ready-made Instagram Automation Software + full installation guide',
+      '₹999 Pro Plan: All current softwares + every future software FREE',
+      'Har software ke saath exact earning method step-by-step included',
     ],
   },
   {
-    id: 'mod-editing',
+    id: 'mod-work-group',
     number: '02',
-    title: '2-Second Hook Editing (Phone + PC)',
-    outcome: '15–20 minute me viral-ready GTA 6 clip export karo',
+    title: 'Private Paid Work Group ("Ek Teer Se Do Nishana")',
+    outcome: 'Har mahine direct paid clipping kaam group me hum denge',
     detail:
-      'CapCut Mobile & Premiere Pro step-by-step retention editing + 500+ ready-made GTA 6 SFX, captions aur presets included.',
+      'Sirf course dekar chhodna nahi — hamare private clipping group me har mahine active earning kaam hum direct denge. Account kaise banana hai, Reel kaise viral karni hai aur kaise kamana hai — sab method + kaam ek saath.',
     deliverables: [
-      '2-second scroll-stopper hook formula & pacing map',
-      '500+ GTA 6 SFX, BGM & dynamic caption presets',
-      'Phone (CapCut) aur PC (Premiere) dono workflows',
+      'Har mahine direct paid clipping campaigns & tasks group me milenge',
+      'Account creation se Reel viral karne tak end-to-end roadmap',
+      'Zero client hunting — seekhte-seekhte Day 1 se earning start',
     ],
   },
   {
-    id: 'mod-algorithm',
+    id: 'mod-gta6',
     number: '03',
-    title: '0-Strike Copyright & Algorithm Growth Shield',
-    outcome: 'Naye page par bhi pehle week se real views lao',
+    title: 'GTA 6 & Kick Clipping High-RPM System (Phone + PC)',
+    outcome: '15–20 minute me viral-ready GTA 6 & Kick clip export karo',
     detail:
-      'Clean fair-use layering, visual transformations aur smart upload timing jisse channel safe rahe aur clips consistently 100K–1M+ views hit karein.',
+      'Wahi proven system jisse ₹42,282.27 SBI bank transfer, $953.16 Kick clipping USDT payout aur 1.3M+ views aaye. Private high-paying clipping platforms sirf mentorship ke andar reveal hote hain.',
     deliverables: [
-      '0-strike copyright-safe audio/visual layering rules',
-      'YouTube Shorts, Reels & TikTok posting blueprint',
-      'Retention drop diagnosis & hook optimization guide',
+      '2-second scroll-stopper hook formula & 500+ GTA 6 SFX/presets',
+      '0-strike copyright-safe audio/visual layering shield',
+      'Secret high-paying clipping platforms & Kick payout blueprint',
     ],
   },
   {
     id: 'mod-payouts',
     number: '04',
-    title: 'Bank / USDT Payout Setup + 1-on-1 Mentor Support',
+    title: 'Bank / USDT Payout Setup + Weekly Mentor Support',
     outcome: 'Seedha Indian / Pakistani bank ya USDT me withdraw karo',
     detail:
-      'India (SBI, HDFC, UPI), Pakistan (EasyPaisa, JazzCash, Wise/Payoneer) aur USDT TRC-20 payout setup + weekly live calls aur direct clip reviews.',
+      'India (SBI, HDFC, UPI), Pakistan (EasyPaisa, JazzCash, Wise/Payoneer) aur USDT TRC-20 withdrawal setup + weekly live calls aur direct clip/Reel reviews.',
     deliverables: [
       'Step-by-step India, Pakistan & USDT settlement setup',
-      'Weekly live Q&A calls + direct clip teardown reviews',
-      'Private VIP Telegram group with active GTA 6 clippers',
+      'Weekly live Q&A calls + direct clip & Reel teardown reviews',
+      'Private VIP Telegram group with active monthly earners',
     ],
   },
 ];
 
 export const SOLO_VS_MENTORSHIP = {
   solo: [
-    'Random GTA 6 clips daalna jahan 200 views par video freeze ho jati hai',
-    'Free YouTube tutorials dekh kar purani outdated strategies try karna',
-    'Copyright strike ya campaign submission reject hone ka constant risk',
-    'Pata hi nahi hota kaunse private clipping platforms aur pools real payout dete hain',
+    'Random Reels ya GTA 6 clips daalna jahan 200 views par account freeze ho jata hai',
+    'Koi paid kaam ya verified clipping campaigns nahi milte — bas time waste hota hai',
+    'Mahange automation softwares khareedne padte hain bina earning method jaane',
+    'Pata hi nahi hota account setup, copyright shield aur payouts kaise karne hain',
   ],
   mentorship: [
-    'Proven 2-second viral hook system jisne 1.3M+ views aur ₹42,282+ bank payout diye',
-    'Saare secret high-paying clipping platforms + ready-made CapCut/Premiere presets',
-    '0-strike copyright shield + 95%+ campaign approval framework',
-    'Direct 1-on-1 clip reviews + India/Pakistan/USDT payout setup support',
+    'Ek Teer Se Do Nishana: Account se Reel viral method + har mahine direct paid kaam hum denge',
+    'FREE Ready-Made Instagram Automation Software (+ ₹999 me future ke sabhi softwares FREE)',
+    'Proven system jisne ₹42,282 SBI bank payout, $953 Kick USDT & 1.3M+ views diye',
+    '1+1 Months (₹499) ya 1+2 Months (₹999) bonus access + direct Telegram mentor support',
   ],
 };
 
@@ -462,27 +435,33 @@ export interface FaqItem {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    id: 'faq-why-gta6',
-    question: 'Abhi GTA 6 clipping start karne ka sabse best time kyun hai?',
+    id: 'faq-plans',
+    question: '₹499 (1+1 Month) aur ₹999 (1+2 Months) plans me kya difference hai?',
     answer:
-      'GTA 6 launch aur har naye trailer/update ke aas-paas billions of views generate ho rahe hain. Jo creators abhi apna GTA 6 clip page aur campaign system ready kar lete hain, wo is massive hype wave ka sabse bada fayda uthate hain.',
+      '₹499 Starter Plan me aapko 1+1 = 2 Months ka full access, FREE Instagram Automation Software, complete GTA 6 + Reels viral method aur hamare private group me har mahine ka direct paid kaam milta hai. ₹999 Pro All-Software Plan me aapko 1+2 = 3 Months total access milta hai PLUS hamare sabhi current softwares aur future me jo bhi naya software hum banayenge wo bhi aapko bilkul FREE milega complete earning method ke saath.',
   },
   {
-    id: 'faq-device',
-    question: 'Kya phone se GTA 6 clipping kar sakte hain ya heavy PC chahiye?',
+    id: 'faq-work-group',
+    question: 'Kya sach me har mahine earning ke liye kaam aapke group me milega?',
     answer:
-      '100% phone (CapCut Mobile) ya normal laptop se ho jata hai. Heavy gaming PC ki bilkul zaroorat nahi hai — kyunki aap existing trailers, updates aur top streams ke clips smart tareeke se edit karte hain.',
+      'Haan! Isi ko hum "Ek Teer Se Do Nishana" bolte hain — pehle hum aapko account setup aur Reel/GTA 6 clip viral karne ka exact method sikhate hain, aur saath hi hamare private clipping group me har mahine active paid clipping kaam hum direct provide karte hain taaki aapko kaam dhoondhna na pade.',
+  },
+  {
+    id: 'faq-software',
+    question: 'Instagram Automation Software kaise milega aur kya phone/laptop dono par chalega?',
+    answer:
+      'Enrollment complete hote hi 5 minute ke andar Telegram onboarding me aapko ready-made Instagram Automation Software + step-by-step setup guide mil jata hai. Editing & clipping 100% phone (CapCut) ya normal laptop se ho jati hai — heavy PC ki zaroorat nahi.',
   },
   {
     id: 'faq-real',
     question: 'Kya upar dikhaye gaye 9 bank, Kick clipping & analytics screenshots real hain?',
     answer:
-      'Haan, ye 100% real payouts aur analytics dashboards hain — SBI bank transfer (₹42,282.27), Kick clipping USDT payment ($953.16), 1.3M+ views ($658.30), 304K views ($641.55), multi-payout pipelines ($518+) aur direct email receipt ($76.34). Baaki saare private clipping platforms mentorship ke andar step-by-step reveal kiye jate hain.',
+      'Haan, ye 100% real payouts aur analytics dashboards hain — SBI bank transfer (₹42,282.27), Kick clipping USDT payment ($953.16), 1.3M+ views ($658.30), 304K views ($641.55), multi-payout pipelines ($518+) aur direct email receipt ($76.34). Baaki saare private clipping platforms mentorship ke andar reveal kiye jate hain.',
   },
   {
     id: 'faq-payments',
     question: 'India, Pakistan ya Crypto (USDT) se kaise join karein aur access kab milega?',
     answer:
-      'India ke liye UPI / QR / GPay / PhonePe, Crypto ke liye direct USDT (Tron TRC-20) QR wallet, aur Pakistan ke liye EasyPaisa / JazzCash / Direct Telegram onboarding available hai. Payment confirm hone ke 5 minute ke andar aapko full mentorship aur VIP Telegram group access mil jata hai.',
+      'India ke liye UPI / QR / GPay / PhonePe, Crypto ke liye direct USDT (Tron TRC-20) QR wallet, aur Pakistan ke liye EasyPaisa / JazzCash / Direct Telegram onboarding available hai. Payment confirm hone ke 5 minute ke andar aapko full dashboard, software aur private paid work group access mil jata hai.',
   },
 ];

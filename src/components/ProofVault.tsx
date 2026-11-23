@@ -36,7 +36,7 @@ export function ProofVault({ currency, onSelectProof }: ProofVaultProps) {
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-violet-500/80" />
-            <span>01 · Verified Results</span>
+            <span>My &amp; My Students&apos; Verified Results</span>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-violet-500/80" />
           </div>
 
@@ -44,10 +44,10 @@ export function ProofVault({ currency, onSelectProof }: ProofVaultProps) {
             9 Real Bank, Kick Clipping &amp; Analytics Proofs
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-zinc-400 sm:text-base">
-            Koi fake edited numbers nahi — direct SBI bank settlement, $953.16
-            Kick clipping USDT payment, live payout pipelines aur 1.3M+ views
-            dashboards. Saare private clipping platforms mentorship ke andar
-            reveal kiye jate hain.
+            Koi fake edited numbers nahi — mera aur mere students ka real SBI
+            bank settlement, $953.16 Kick clipping USDT payment, live payout
+            pipelines aur 1.3M+ views dashboards. Saare private clipping
+            platforms mentorship ke andar reveal kiye jate hain.
           </p>
 
           {/* Animated Glass Filter Pills */}

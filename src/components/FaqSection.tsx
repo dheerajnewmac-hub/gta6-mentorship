@@ -82,34 +82,34 @@ export function FaqSection({ onEnrollClick }: FaqSectionProps) {
           })}
         </div>
 
-        {/* Quantix-Style Final Luminous Violet CTA Block */}
+        {/* Final Luminous Conversion CTA Block */}
         <div className="vip-cosmic-card relative mt-16 overflow-hidden rounded-3xl p-8 text-center sm:mt-20 sm:p-12">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 top-0 -z-10 h-48 w-96 -translate-x-1/2 rounded-full bg-violet-500/35 blur-3xl"
           />
 
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">
-            GTA 6 Hype Wave Won&apos;t Wait
+          <p className="font-mono text-xs font-semibold tracking-wide text-amber-300">
+            Skill Seekho · Income Kamao
           </p>
           <h3 className="mx-auto mt-3 max-w-2xl font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-            Agle 30 Din Me Apna GTA 6 Clipping System Ready Karo
+            Free Insta Software + Monthly Paid Work Group Join Karo
           </h3>
           <p className="mx-auto mt-3 max-w-xl text-sm text-zinc-300 sm:text-base">
-            9 verified real proofs dekh chuke ho. Ab seedha Batch 1 join karo aur
-            UPI, USDT (TRC-20) ya EasyPaisa se 5 minute me onboarding start karo.
+            ₹499 (1+1 Month) ya ₹999 (1+2 Months All Software + Future Software
+            FREE) choose karo aur 5 minute me Telegram par start karo.
           </p>
 
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <motion.button
               type="button"
-              onClick={() => onEnrollClick('vip_3m')}
+              onClick={() => onEnrollClick('pro')}
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 420, damping: 24 }}
-              className="btn-sheen violet-cta-glow inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-8 py-3.5 text-[15px] font-semibold text-white sm:w-auto"
+              className="btn-sheen gold-cta-glow inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl px-8 py-3.5 text-[15px] font-extrabold sm:w-auto"
             >
-              <span>Enroll Now (₹499 / ₹999) &amp; Get Software</span>
+              <span>Enroll Now &amp; Start Earning Today</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </motion.button>
           </div>

@@ -70,8 +70,8 @@ export function CheckoutModal({
 
   if (!isOpen) return null;
 
-  const starterPrice = getPlanPriceInfo('starter_2m', currency);
-  const vipPrice = getPlanPriceInfo('vip_3m', currency);
+  const starterPrice = getPlanPriceInfo('starter', currency);
+  const proPrice = getPlanPriceInfo('pro', currency);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,8 +109,8 @@ export function CheckoutModal({
       >
         <div className="flex items-start justify-between gap-4 border-b border-white/[0.08] pb-4">
           <div>
-            <p className="text-xs font-semibold text-emerald-400">
-              Batch 1 Instant Enrollment
+            <p className="text-xs font-semibold text-amber-300">
+              Instant Software + Paid Work Group Onboarding
             </p>
             <h3
               id="checkout-modal-title"
@@ -118,7 +118,7 @@ export function CheckoutModal({
             >
               {validatedData
                 ? 'Complete Your Payment'
-                : 'Join Mentorship & Get Software'}
+                : 'Enroll in Monthly Program'}
             </h3>
           </div>
           <button
@@ -143,15 +143,15 @@ export function CheckoutModal({
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
               <fieldset>
                 <legend className="text-xs font-semibold text-zinc-300">
-                  Selected Program
+                  Selected Monthly Plan
                 </legend>
                 <div className="mt-2 grid grid-cols-2 gap-3">
-                  {(['starter_2m', 'vip_3m'] as PlanId[]).map((id) => {
+                  {(['starter', 'pro'] as PlanId[]).map((id) => {
                     const active = planId === id;
                     const priceText =
-                      id === 'starter_2m'
-                        ? `${starterPrice.currentFormatted} (1+1 Mo)`
-                        : `${vipPrice.currentFormatted} (1+2 Mo VIP)`;
+                      id === 'starter'
+                        ? `${starterPrice.currentFormatted} · 1+1 Mo`
+                        : `${proPrice.currentFormatted} · 1+2 Mo`;
                     return (
                       <button
                         key={id}
@@ -160,22 +160,19 @@ export function CheckoutModal({
                         aria-pressed={active}
                         className={`rounded-2xl border p-3.5 text-left transition-all ${
                           active
-                            ? 'border-violet-400/60 bg-violet-500/20 text-white shadow-[0_0_24px_-8px_rgba(139,92,246,0.7)]'
+                            ? 'border-amber-400/60 bg-violet-500/20 text-white shadow-[0_0_24px_-8px_rgba(139,92,246,0.7)]'
                             : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-white/20'
                         }`}
                       >
                         <p className="text-xs font-semibold">
-                          {PRICING_PLANS[id].name}
+                          {PRICING_PLANS[id].shortName}
                         </p>
                         <p
                           className={`mt-1 font-mono text-sm font-bold tabular-nums ${
-                            active ? 'text-emerald-300' : 'text-emerald-400'
+                            active ? 'text-amber-300' : 'text-emerald-400'
                           }`}
                         >
                           {priceText}
-                        </p>
-                        <p className="mt-0.5 text-[10px] text-zinc-400">
-                          {id === 'vip_3m' ? 'All Softwares FREE' : 'Instagram Bot Included'}
                         </p>
                       </button>
                     );

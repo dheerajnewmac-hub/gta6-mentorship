@@ -100,7 +100,7 @@ export function LiveBuyerToast({
                 }}
                 style={{ transformOrigin: 'left' }}
                 className={`h-full w-full ${
-                  activeBuyer.isVip ? 'bg-violet-400' : 'bg-emerald-400'
+                  activeBuyer.isPro ? 'bg-amber-400' : 'bg-emerald-400'
                 }`}
               />
             </div>
@@ -110,7 +110,7 @@ export function LiveBuyerToast({
               <div className="relative shrink-0">
                 <div
                   className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold tracking-tight sm:h-9 sm:w-9 sm:text-xs ${
-                    activeBuyer.isVip
+                    activeBuyer.isPro
                       ? 'bg-gradient-to-br from-violet-500 to-purple-700 text-white ring-1 ring-white/25'
                       : 'bg-emerald-500/20 text-emerald-300 ring-1 ring-emerald-400/40'
                   }`}

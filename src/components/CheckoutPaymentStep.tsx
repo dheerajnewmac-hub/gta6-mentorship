@@ -32,7 +32,6 @@ interface CheckoutPaymentStepProps {
   onClose: () => void;
 }
 
-
 export function CheckoutPaymentStep({
   values,
   currency,

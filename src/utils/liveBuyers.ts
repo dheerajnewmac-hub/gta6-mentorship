@@ -24,7 +24,7 @@ export interface FormattedLiveBuyer {
   priceFormatted: string;
   timeAgo: string;
   paymentMethod: string;
-  isVip: boolean;
+  isPro: boolean;
 }
 
 export const LIVE_BUYERS: LiveBuyerEntry[] = [
@@ -32,7 +32,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-ashok',
     name: 'Ashok',
     city: 'Jaipur',
-    planId: 'vip_3m',
+    planId: 'pro',
     timeAgo: 'Just now',
     paymentMethod: 'UPI Verified',
   },
@@ -40,7 +40,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-rohan',
     name: 'Rohan Sharma',
     city: 'Pune',
-    planId: 'vip_3m',
+    planId: 'pro',
     timeAgo: '2 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -48,7 +48,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-bilal',
     name: 'Bilal Ahmed',
     city: 'Lahore',
-    planId: 'starter_2m',
+    planId: 'pro',
     timeAgo: '5 mins ago',
     paymentMethod: 'EasyPaisa Verified',
   },
@@ -56,7 +56,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-aditya',
     name: 'Aditya Verma',
     city: 'Lucknow',
-    planId: 'starter_2m',
+    planId: 'starter',
     timeAgo: '8 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -64,7 +64,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-arjun',
     name: 'Arjun Patel',
     city: 'Ahmedabad',
-    planId: 'vip_3m',
+    planId: 'pro',
     timeAgo: '11 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -72,7 +72,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-hamza',
     name: 'Hamza Khan',
     city: 'Karachi',
-    planId: 'vip_3m',
+    planId: 'pro',
     timeAgo: '14 mins ago',
     paymentMethod: 'JazzCash Verified',
   },
@@ -80,7 +80,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-vivek',
     name: 'Vivek Yadav',
     city: 'Indore',
-    planId: 'starter_2m',
+    planId: 'starter',
     timeAgo: '19 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -88,7 +88,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-sahil',
     name: 'Sahil Thakur',
     city: 'Chandigarh',
-    planId: 'vip_3m',
+    planId: 'starter',
     timeAgo: '24 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -96,7 +96,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-karan',
     name: 'Karan Rajput',
     city: 'Delhi NCR',
-    planId: 'vip_3m',
+    planId: 'pro',
     timeAgo: '29 mins ago',
     paymentMethod: 'UPI Verified',
   },
@@ -104,7 +104,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
     id: 'buyer-danish',
     name: 'Danish Ali',
     city: 'Islamabad',
-    planId: 'starter_2m',
+    planId: 'pro',
     timeAgo: '34 mins ago',
     paymentMethod: 'EasyPaisa Verified',
   },
@@ -113,6 +113,7 @@ export const LIVE_BUYERS: LiveBuyerEntry[] = [
 export const LIVE_BUYER_TIMING = {
   initialDelayMs: 2000,
   visibleDurationMs: 4500,
+  // Varied gaps averaging 7.75s so each popup returns every 11s–14s (within 10–15s)
   gapScheduleMs: [7000, 8500, 6500, 9000, 7500, 8000] as readonly number[],
 };
 
@@ -124,7 +125,7 @@ export function getNextPopupDelayMs(stepIndex: number): number {
 
 export function getBuyerInitials(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length === 0) return 'AI';
+  if (parts.length === 0) return 'GT';
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
   return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
 }
@@ -147,10 +148,10 @@ export function formatLiveBuyerNotification(
     city: entry.city,
     initials: getBuyerInitials(entry.name),
     planId: entry.planId,
-    planName: plan.name,
+    planName: plan.shortName,
     priceFormatted: price.currentFormatted,
     timeAgo: entry.timeAgo,
     paymentMethod: entry.paymentMethod,
-    isVip: entry.planId === 'vip_3m',
+    isPro: entry.planId === 'pro',
   };
 }

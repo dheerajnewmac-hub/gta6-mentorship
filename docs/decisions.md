@@ -16,17 +16,19 @@
 - **Reason**: Allows students to submit payment proof screenshots and initiate instant 1-on-1 onboarding chat directly with the mentor.
 
 ### 4. Pricing & Deliverables (Legacy Initial)
-- **Decision**: Lifetime VIP Pass initially at ₹1,999. (Superseded by Decision 6).
+- **Decision**: Lifetime VIP Pass initially at ₹1,999. (Superseded by Decision 6 and 7).
 
 ### 5. Quantix Cosmic Dark UI Migration
 - **Decision**: Full migration of the latest source code from `C:\Users\User\Downloads\new ui gta6 clipping mentorship`.
 - **Reason**: Upgrades visual theme to a premium Quantix-inspired cosmic dark canvas (`#07050F`) with luminous violet gradients, live marquee metrics, and expanded real proof items.
 
 ### 6. AI Income Pro Dashboard, 8 Modules, & Monthly Validity Model (₹499 / ₹999)
+- **Decision**: Introduced 1+1 Month (₹499) and 1+2 Months (₹999) monthly validity structure.
+
+### 7. Full UI Migration from gta-6-clipping-mastery (2)
 - **Decision**:
-  - Rebrand to "AI Income Pro — Learn · Apply · Earn" with 8 structured course modules and dedicated Instagram Automation Software section.
-  - Complete removal of "Lifetime Access" from the entire product.
-  - New Monthly Validity Offering:
-    - **Starter Pass (₹499)**: 1 Month Paid + 1 Month FREE (Total 2 Months Access) + Free Instagram Automation Software + Monthly Work.
-    - **Pro VIP All-Access (₹999)**: 1 Month Paid + 2 Months FREE (Total 3 Months Access) + **All Future Softwares FREE** + Direct High-Paying Monthly Campaigns & Kaam Guaranteed.
-  - **"Ek Teer Se Do Nishane"** value proposition: We teach the viral reel & account building method, AND we directly provide paid work & campaigns every month.
+  - Adopt the exact UI layout from `C:\Users\User\Downloads\gta-6-clipping-mastery (2)`:
+    - Immediate top visibility for both plans: Starter (1+1 Mo @ ₹499) & Pro All-Software (1+2 Mo @ ₹999 with all future software free).
+    - 12 Student Reviews Section with verified photos, earnings, and 4.9/5 overall rating.
+    - 8 Course Modules with dedicated Instagram Automation Software bonus module.
+    - Preserved Dheeraj Kiroriwal's PhonePe QR, UPI `dheerajkiroriwal@ybl`, and Telegram `@Eliteclippers1`.

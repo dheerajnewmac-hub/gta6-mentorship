@@ -120,13 +120,13 @@ export function ProofLightbox({
               type="button"
               onClick={() => {
                 onClose();
-                onEnrollClick('vip_3m');
+                onEnrollClick('pro');
               }}
               whileHover={{ y: -1.5, scale: 1.01 }}
               whileTap={{ scale: 0.98 }}
-              className="btn-sheen violet-cta-glow inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white"
+              className="btn-sheen gold-cta-glow inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-extrabold"
             >
-              <span>Learn This Exact GTA 6 System</span>
+              <span>Join Pro Program &amp; Get Free Software</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </motion.button>
           </div>
