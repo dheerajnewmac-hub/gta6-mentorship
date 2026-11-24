@@ -88,7 +88,7 @@ export function getPaymentMethodLabel(paymentMethod: PaymentMethod): string {
   return 'EasyPaisa / JazzCash / Direct Transfer';
 }
 
-export const PRIMARY_UPI_ID = 'dheerajkiroriwal@ybl';
+export const PRIMARY_UPI_ID = 'dheerajkiroriwal@axl';
 export const PRIMARY_PAYEE_NAME = 'Dheeraj Kiroriwal';
 export const PRIMARY_TELEGRAM_USERNAME = 'Eliteclippers1';
 

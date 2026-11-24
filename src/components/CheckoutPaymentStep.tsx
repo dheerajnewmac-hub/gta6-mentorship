@@ -199,6 +199,17 @@ export function CheckoutPaymentStep({
                   )}
                 </button>
               </div>
+
+              <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-2.5 text-left text-xs text-emerald-300">
+                <p className="font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <span>Important Step:</span>
+                </p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-200">
+                  Payment hone ke baad <strong className="text-white">Telegram (@{PRIMARY_TELEGRAM_USERNAME})</strong> par payment ka <strong className="text-emerald-300">Screenshot zaroor bhejein</strong> taaki 5 minute me aapka access activate ho sake!
+                </p>
+              </div>
+
               <a
                 href={upiUri}
                 className="inline-flex text-xs font-semibold text-violet-300 underline underline-offset-4 hover:text-white"
@@ -258,6 +269,16 @@ export function CheckoutPaymentStep({
                     </>
                   )}
                 </button>
+              </div>
+
+              <div className="rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-2.5 text-left text-xs text-emerald-300">
+                <p className="font-semibold flex items-center gap-1.5">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                  <span>Important Step:</span>
+                </p>
+                <p className="mt-1 text-[11px] leading-relaxed text-zinc-200">
+                  Transfer hone ke baad transaction hash / screenshot <strong className="text-white">Telegram (@{PRIMARY_TELEGRAM_USERNAME})</strong> par bhejein for instant 5-minute activation!
+                </p>
               </div>
             </div>
           </div>

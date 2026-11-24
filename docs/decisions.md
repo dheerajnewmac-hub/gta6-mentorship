@@ -32,3 +32,11 @@
     - 12 Student Reviews Section with verified photos, earnings, and 4.9/5 overall rating.
     - 8 Course Modules with dedicated Instagram Automation Software bonus module.
     - Preserved Dheeraj Kiroriwal's PhonePe QR, UPI `dheerajkiroriwal@ybl`, and Telegram `@Eliteclippers1`.
+
+### 8. Payment Gateway Update (PhonePe QR, dheerajkiroriwal@axl, & USDT TRC-20)
+- **Decision**:
+  - UPI ID updated to `dheerajkiroriwal@axl` (Beneficiary: Dheeraj Kiroriwal).
+  - PhonePe QR updated to the latest merchant square QR provided by user.
+  - Crypto USDT (Tron TRC-20) wallet address updated to `TFH1z3sC2MHPGZpw3KvTt9QegbJJCyD8ii`.
+  - Added mandatory payment verification requirement: user must send payment screenshot to mentor Telegram `@Eliteclippers1` (`https://t.me/Eliteclippers1`) to complete verification and receive course access.
+- **Reason**: Streamlines instant verification and delivers direct 1-on-1 mentor onboarding upon transfer confirmation.
