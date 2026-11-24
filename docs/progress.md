@@ -13,6 +13,7 @@
 - Updated `PRIMARY_UPI_ID = 'dheerajkiroriwal@axl'` in `src/utils/checkout.ts`.
 - Replaced `public/assets/payment/phonepe_qr.png` with the user's new PhonePe QR code.
 - Updated `USDT_WALLET_INFO.address = 'TFH1z3sC2MHPGZpw3KvTt9QegbJJCyD8ii'` in `src/data/content.ts`.
+- Removed old template USDT QR image and ensured only verified TRC-20 address with Copy button is rendered.
 - Added prominent alert cards inside both UPI and USDT payment steps in `src/components/CheckoutPaymentStep.tsx` informing users to send the payment screenshot to Telegram `@Eliteclippers1`.
 - Verified Telegram deep-link and pre-filled message generator in `src/utils/checkout.ts`.
 - Unit test suite: 12 / 12 passed (`src/utils/*.test.ts`).

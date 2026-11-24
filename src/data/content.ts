@@ -4,7 +4,6 @@ export const USDT_WALLET_INFO = {
   network: 'Tron (TRC-20)',
   asset: 'USDT',
   address: 'TFH1z3sC2MHPGZpw3KvTt9QegbJJCyD8ii',
-  qrImageSrc: '/assets/aistudio/photo_2026-10-26_18-09-56_aa206d06.jpg',
   warning: 'Only send Tron (TRC-20) assets to this address. Other networks will be lost.',
 };
 

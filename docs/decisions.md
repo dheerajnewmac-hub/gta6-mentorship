@@ -38,5 +38,6 @@
   - UPI ID updated to `dheerajkiroriwal@axl` (Beneficiary: Dheeraj Kiroriwal).
   - PhonePe QR updated to the latest merchant square QR provided by user.
   - Crypto USDT (Tron TRC-20) wallet address updated to `TFH1z3sC2MHPGZpw3KvTt9QegbJJCyD8ii`.
+  - Removed outdated placeholder USDT QR image (`photo_2026-10-26_18-09-56_aa206d06.jpg` from the legacy downloaded template) to prevent any wrong scanning; display only the verified text address with clean "Copy Address" button.
   - Added mandatory payment verification requirement: user must send payment screenshot to mentor Telegram `@Eliteclippers1` (`https://t.me/Eliteclippers1`) to complete verification and receive course access.
-- **Reason**: Streamlines instant verification and delivers direct 1-on-1 mentor onboarding upon transfer confirmation.
+- **Reason**: Eliminates risk of sending crypto to unintended template addresses and streamlines instant verification via direct 1-on-1 mentor onboarding upon transfer confirmation.
